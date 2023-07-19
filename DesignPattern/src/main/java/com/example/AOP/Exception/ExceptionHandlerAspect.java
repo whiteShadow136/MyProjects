@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.FileNotFoundException;
 
 @Aspect
-//@Component
+@Component
 public class ExceptionHandlerAspect {
 
     @Around("execution(* com.example.AOP.Exception.FileNotFound.play(..))")

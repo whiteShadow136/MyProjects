@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import java.io.FileNotFoundException;
+
 /**
  * @Description:com.example.AOP
  *
@@ -15,7 +17,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class);
         FileNotFound fileNotFound = context.getBean(FileNotFound.class);
         fileNotFound.play();

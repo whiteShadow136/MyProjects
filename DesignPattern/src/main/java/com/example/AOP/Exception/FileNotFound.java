@@ -25,13 +25,13 @@ public class FileNotFound {
 
     }
 
-    public void play() {
+    public void play() throws FileNotFoundException {
         Logger logger = LoggerFactory.getLogger(FileNotFound.class);
         File file = new File("D://sdgasdg");
-        try {
+//        try {
             FileInputStream fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            logger.error(e.getMessage());
-        }
+//        } catch (FileNotFoundException e) {
+//            logger.error(e.getMessage());
+//        }
     }
 }
