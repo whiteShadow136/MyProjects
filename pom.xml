@@ -15,6 +15,7 @@
         <module>MyMyBatis</module>
         <module>DesignPattern</module>
         <module>MySpringSecurity</module>
+        <module>MySpringMVC</module>
     </modules>
 
     <properties>

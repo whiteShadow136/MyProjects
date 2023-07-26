@@ -3,3 +3,4 @@ spring:
     user:
       name: root
       password: qq
+    enabled: false
