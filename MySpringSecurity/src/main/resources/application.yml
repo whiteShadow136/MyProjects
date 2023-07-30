@@ -4,3 +4,11 @@ spring:
       name: root
       password: qq
     enabled: false
+  thymeleaf:
+    cache: false
+    suffix: .html
+    prefix: classpath:/templates/
+
+server:
+  port: 8081
+
