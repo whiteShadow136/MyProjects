@@ -16,6 +16,7 @@
         <module>DesignPattern</module>
         <module>MySpringSecurity</module>
         <module>MySpringMVC</module>
+        <module>swagger</module>
     </modules>
 
     <properties>
