@@ -30,6 +30,6 @@ public class ClassInstance extends EnhanceMethod implements MethodInterface {
 
     public void play() {
         Object returnObject = invoke();
-        ((SimpleMethod)realBean).play();
+//        ((SimpleMethod)realBean).play();
     }
 }

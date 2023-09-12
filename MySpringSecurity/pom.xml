@@ -75,7 +75,7 @@
 <!--                <configuration>-->
 <!--                    <archive>-->
 <!--                        <manifest>-->
-<!--                            <mainClass>simpleSecurity.Main</mainClass> &lt;!&ndash; 指定主类 &ndash;&gt;-->
+<!--                            <mainClass>simpleSecurity.事务生成的代码类.Main</mainClass> &lt;!&ndash; 指定主类 &ndash;&gt;-->
 <!--                        </manifest>-->
 <!--                    </archive>-->
 <!--                    <descriptorRefs>-->
@@ -102,7 +102,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>simpleSecurity.Main</mainClass>
+                    <mainClass>simpleSecurity.事务生成的代码类.Main</mainClass>
                 </configuration>
             </plugin>
                     <plugin>

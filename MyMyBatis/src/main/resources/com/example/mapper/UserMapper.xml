@@ -8,7 +8,7 @@
     <select id="getUserById" resultType="com.example.User">
         SELECT * FROM
         <if test="tableName != null and tableName != ''">
-            #{tableName}
+            ${tableName}
         </if>
                  WHERE id = #{id}
     </select>

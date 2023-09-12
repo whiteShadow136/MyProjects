@@ -16,7 +16,7 @@ import java.lang.reflect.Proxy;
  */
 public class SimpleMethod extends EnhanceMethod {
     
-    public void play() {
+    public void play(int a) {
         System.out.println(1111);
     }
 
@@ -61,7 +61,7 @@ public class SimpleMethod extends EnhanceMethod {
                     }
                 }
         );
-        methodProxy.play();
+//        methodProxy.play();
     }
 
 }
