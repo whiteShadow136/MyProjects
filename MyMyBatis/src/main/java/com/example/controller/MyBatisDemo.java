@@ -1,30 +1,48 @@
-package com.example;
+package com.example.controller;
 
 import com.example.User;
-import com.example.UserMapper;
-import org.apache.ibatis.io.Resources;
+import com.example.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+@Component
 public class MyBatisDemo {
 
-    private static SqlSession sqlSession = null;
+    public MyBatisDemo() {
+        System.out.println(1111);
+    }
+
+    @Autowired
+    @Qualifier(value = "getSqlSession")
+    private SqlSession sqlSession;
     public static void main(String[] args) {
-        String resource = "/mybatis-config.xml";
+        String resource = "/mybatis-config";
         InputStream inputStream;
         MyBatisDemo myBatisDemo = new MyBatisDemo();
-        sqlSession = myBatisDemo.getSqlSession(resource);
-        myBatisDemo.userExecute();
+//        sqlSession = myBatisDemo.getSqlSession(resource);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+//        Future<?> submit = executorService.submit(() -> myBatisDemo.userExecute());
+//        Future<?> submit1 = executorService.submit(() -> myBatisDemo.userExecute());
+//        Future<?> submit2 = executorService.submit(() -> myBatisDemo.userExecute());
+//        myBatisDemo.userExecute("user", 1);
+//        myBatisDemo.userExecute("user", 2);
+//        myBatisDemo.userExecute("user", 3);
+//        myBatisDemo.userExecute("user", 4);
+//        myBatisDemo.userExecute("user", 5);
+//        myBatisDemo.userExecute("user", 6);
     }
-    public void userExecute() {
+
+    @Transactional
+    public void userExecute(String table, int userId) {
         try {
             // 获取UserMapper接口的实例
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -38,7 +56,8 @@ public class MyBatisDemo {
 //                System.out.println("插入用户成功");
 
             // 根据id查询用户
-            User retrievedUser = userMapper.getUserById("User", 1);
+            User retrievedUser = userMapper.getUserById(table, userId);
+//            new ObjectInputStream()
             System.out.println("查询用户：" + retrievedUser);
 
 //                // 更新用户
@@ -58,11 +77,11 @@ public class MyBatisDemo {
 //                sqlSession.commit();
         } catch (Exception e) {
             // 发生异常时回滚事务
-            sqlSession.rollback();
+//            sqlSession.rollback();
             e.printStackTrace();
         } finally {
             // 关闭SqlSession
-            sqlSession.close();
+//            sqlSession.close();
         }
     }
 

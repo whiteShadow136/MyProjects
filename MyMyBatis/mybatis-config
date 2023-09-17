@@ -1,0 +1,22 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE configuration-->
+<!--        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-config.dtd">-->
+
+<!--<configuration>-->
+<!--&lt;!&ndash;    <environments default="development">&ndash;&gt;-->
+<!--&lt;!&ndash;        <environment id="development">&ndash;&gt;-->
+<!--&lt;!&ndash;            <transactionManager type="JDBC" />&ndash;&gt;-->
+<!--&lt;!&ndash;            <dataSource type="com.alibaba.druid.pool.DruidDataSource">&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="driver" value="com.mysql.jdbc.Driver" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="url" value="jdbc:mysql://139.159.189.207:3306/mydatabase" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="username" value="root" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="password" value="qq" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </dataSource>&ndash;&gt;-->
+<!--&lt;!&ndash;        </environment>&ndash;&gt;-->
+<!--&lt;!&ndash;    </environments>&ndash;&gt;-->
+
+<!--    <mappers>-->
+<!--        <mapper resource="com/example/mapper/UserMapper.xml" />-->
+<!--    </mappers>-->
+<!--</configuration>-->
