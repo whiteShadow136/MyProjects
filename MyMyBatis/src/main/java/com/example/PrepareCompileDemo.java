@@ -1,5 +1,7 @@
 package com.example;
 
+import org.springframework.context.annotation.ImportResource;
+
 import java.sql.*;
 
 public class PrepareCompileDemo {

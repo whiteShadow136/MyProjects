@@ -22,7 +22,7 @@ public class MyBatisDemo {
     }
 
     @Autowired
-    @Qualifier(value = "getSqlSession")
+//    @Qualifier(value = "getSqlSession")
     private SqlSession sqlSession;
     public static void main(String[] args) {
         String resource = "/mybatis-config";

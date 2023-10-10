@@ -26,16 +26,16 @@ public class MyBatisConfig {
     @Autowired
     private DataSource dataSource;
 
-    @Bean
-    public SqlSessionFactoryBean getSqlSessionBean(DataSource dataSource) {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource);
-        return sqlSessionFactoryBean;
-    }
+//    @Bean
+//    public SqlSessionFactoryBean getSqlSessionBean(DataSource dataSource) {
+//        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//        sqlSessionFactoryBean.setDataSource(dataSource);
+//        return sqlSessionFactoryBean;
+//    }
 
-    @Bean
-    public SqlSessionTemplate getSqlSession(SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
-        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject();
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
+//    @Bean
+//    public SqlSessionTemplate getSqlSession(SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
+//        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject();
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
 }
