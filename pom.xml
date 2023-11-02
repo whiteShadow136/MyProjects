@@ -19,6 +19,7 @@
         <module>swagger</module>
         <module>MyJava</module>
         <module>MyTransacation</module>
+        <module>MyHibernate</module>
     </modules>
 
     <properties>
