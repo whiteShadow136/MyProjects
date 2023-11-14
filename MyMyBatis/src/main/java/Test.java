@@ -19,7 +19,7 @@ public class Test {
             System.out.println(item);
 
             // 在遍历过程中尝试修改列表
-            if (item.equals("A")) {
+            if (item.equals("B")) {
                 list.remove(item);
             }
         }
