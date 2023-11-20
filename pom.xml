@@ -20,6 +20,7 @@
         <module>MyJava</module>
         <module>MyTransacation</module>
         <module>MyHibernate</module>
+        <module>MyCommon</module>
     </modules>
 
     <properties>

@@ -13,5 +13,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class RdmServiceApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(RdmServiceApplication.class);
+        System.out.println(1111);
     }
 }
