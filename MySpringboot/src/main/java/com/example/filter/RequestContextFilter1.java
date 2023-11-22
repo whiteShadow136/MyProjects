@@ -1,11 +1,12 @@
 package com.example.filter;
 
 import com.example.context.RequestContext;
-import com.example.context.RequestContextManager;
 import com.example.context.RequestContextManagerImpl;
 import org.example.entity.SysUser;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
@@ -13,7 +14,9 @@ import java.io.IOException;
  * @Date:2023/11/21
  * @Author:谢锦创
  */
-public class RequestContextFilter implements Filter {
+@Component
+@WebFilter("/*")
+public class RequestContextFilter1 implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,8 +25,8 @@ public class RequestContextFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Object idAttribute = request.getAttribute("id");
-        Object nameAttribute = request.getAttribute("userName");
+        Object idAttribute = request.getParameter("id");
+        Object nameAttribute = request.getParameter("userName");
         String id = "";
         if (idAttribute != null) {
             id = (String) idAttribute;
