@@ -21,6 +21,7 @@
         <module>MyTransacation</module>
         <module>MyHibernate</module>
         <module>MyCommon</module>
+        <module>MyDruid</module>
     </modules>
 
     <properties>
