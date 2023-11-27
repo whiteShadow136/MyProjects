@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @Description:com.example
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.PropertySource;
 public class RdmServiceApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(RdmServiceApplication.class);
+//        new ClassPathXmlApplicationContext()
         System.setProperty("names1", "123");
         System.out.println(1111);
 
