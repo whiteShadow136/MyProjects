@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import lombok.Data;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author:谢锦创
  */
 @RestController
+@Data
 public class HelloController {
 
     private String name = "aaa";

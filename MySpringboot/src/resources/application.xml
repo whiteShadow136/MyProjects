@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 定义一个简单的Bean -->
+    <bean id="myBean" class="com.example.controller.HelloController">
+<!--        &lt;!&ndash; 可以在这里配置属性，例如：-->
+        <property name="name" value="mrxie" />
+<!--        &ndash;&gt;-->
+    </bean>
+
+</beans>

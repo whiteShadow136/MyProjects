@@ -16,12 +16,12 @@
         <module>DesignPattern</module>
         <module>MySpringSecurity</module>
         <module>MySpringMVC</module>
-        <module>swagger</module>
         <module>MyJava</module>
         <module>MyTransacation</module>
         <module>MyHibernate</module>
         <module>MyCommon</module>
         <module>MyDruid</module>
+        <module>MySwagger</module>
     </modules>
 
     <properties>

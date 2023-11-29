@@ -16,8 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
         ignoreResourceNotFound = true)
 public class RdmServiceApplication {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(RdmServiceApplication.class);
-//        new ClassPathXmlApplicationContext()
+//        ConfigurableApplicationContext context = SpringApplication.run(RdmServiceApplication.class);
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:application.xml");
         System.setProperty("names1", "123");
         System.out.println(1111);
 
