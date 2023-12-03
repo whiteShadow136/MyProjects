@@ -22,6 +22,7 @@
         <module>MyCommon</module>
         <module>MyDruid</module>
         <module>MySwagger</module>
+        <module>MySwaggers</module>
     </modules>
 
     <properties>
