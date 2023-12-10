@@ -1,6 +1,8 @@
 package com.example;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,10 +16,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
         ignoreResourceNotFound = true)
 public class XmlServiceApplication {
     public static void main(String[] args) {
-//        ConfigurableApplicationContext context = SpringApplication.run(RdmServiceApplication.class);
-        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:application.xml");
-        System.setProperty("names1", "123");
-        System.out.println(1111);
+        ConfigurableApplicationContext context = SpringApplication.run(XmlServiceApplication.class);
+//        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:application.xmlfsa");
+//        System.setProperty("names1", "123");
+//        System.out.println(1111);
 
     }
 }

@@ -21,8 +21,9 @@
         <module>MyHibernate</module>
         <module>MyCommon</module>
         <module>MyDruid</module>
-        <module>MySwagger</module>
         <module>MySwaggers</module>
+        <module>MyEureka</module>
+        <module>MyFeign</module>
     </modules>
 
     <properties>
@@ -37,7 +38,14 @@
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>MyCommon</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
 
 <!--    <dependencyManagement>-->
 <!--        <dependencies>-->
