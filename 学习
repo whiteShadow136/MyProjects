@@ -12,3 +12,9 @@ https://juejin.cn/post/7076244567569203208
 怎么理解那个需求，反正就是入参里面传了rdmDeleteFlag,就把默认拼接得的rdmdeleteflag去掉，毕竟我要做到的就是用户传了这个参数，就让用户去自定义查找，
 不再拼默认的内容。
 https://www.bilibili.com/video/BV18E411e7WJ/?vd_source=2ac6e1ae005f1ca29c98caa66c9f86a4
+
+要做的事：
+  1. 在loadagent...里面的分布式锁那里刷缓存。
+  不对，无论是哪个应用刷元数据，都得刷关系缓存。没关系，就直接放在元数据之后刷就是了。
+
+  ognl --classLoaderClass com.taobao.arthas.agent.ArthasClassloader '#a=@com.taobao.arthas.core.server.ArthasBootstrap@getInstance(),#a.shellServer.commandManager' -x 4

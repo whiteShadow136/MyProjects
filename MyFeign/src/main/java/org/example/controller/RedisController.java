@@ -35,9 +35,9 @@ public class RedisController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    private static Map<Class, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
+    private static Map<Class<?>, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
 
-    private static Map<Class, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
+    private static Map<Class<?>, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
 
 //    public RedisController(RedisTemplate redisTemplate) {
 //        this.redisTemplate = redisTemplate;
@@ -45,12 +45,15 @@ public class RedisController {
 
     @GetMapping("save")
     public Result save(String key, String value){
+        System.out.println(1111);
+//        System.out.println(2222);
         redisTemplate.opsForValue().set(key, value);
         List<RelationShipVO> relationShipVos = getRelationShipVo();
         SOURCE_CACHE.put(SysUser.class, relationShipVos);
         SOURCE_CACHE.put(SysClass.class, relationShipVos);
         String sourceCache = JSON.toJSONString(SOURCE_CACHE, SerializerFeature.DisableCircularReferenceDetect);
         redisTemplate.opsForValue().set(key, sourceCache);
+        redisTemplate.persist(key);
         redisTemplate.opsForValue().get(key);
 //        JSON.parseObject(redisTemplate.opsForValue().get(key), new TypeReference<Map<String, List<RelationShipVO>>>(){})
         String json = redisTemplate.opsForValue().get(key).toString();
