@@ -7,7 +7,8 @@ package org.example.entity.enums;
  */
 public enum Result {
     SUCCESS("0000", "成功"),
-    FAIL("0001", "失败");
+    FAIL("0001", "失败"),
+    ERROR("0002", "异常");
 
     private String code;
     private String msg;

@@ -87,4 +87,25 @@ public class UserController {
         userRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{userId}")
+    public void TestHibernateCache(@PathVariable long userId) {
+        // 假设 entityManager 是一个有效的 EntityManager 实例
+        // 假设 userId 是我们想要查询的用户的 ID
+
+        User userProxy = entityManager.getReference(User.class, userId);
+
+        // 这时，userProxy 是一个 User 实体的代理对象，不是真实的实体
+
+        // 访问 userProxy 的一个非 ID 属性，比如 name
+        String userName = userProxy.getName();
+
+        // 调用 getName() 将触发 JPA 去数据库中加载 userProxy 的真实数据
+        // 因此，现在 userProxy 已经被填充了真实的 User 实体数据
+        System.out.println(userProxy.getId());
+//        System.out.println(userName);
+//        System.out.println(userName);
+//        System.out.println(userProxy);
+    }
+
 }

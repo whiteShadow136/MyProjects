@@ -26,9 +26,9 @@ public class PersistObject {
 //    @JsonIgnore
 //    @JSONField(serialize = false)
 
-    @Type(type = "org.example.hibernateType.JsonArrayType")
-    @Column(name = "json")
-    private JSONArray json;
+//    @Type(type = "org.example.hibernateType.JsonArrayType")
+//    @Column(name = "json")
+//    private JSONArray json;
 
     @Embedded
     private Student student;
@@ -36,7 +36,7 @@ public class PersistObject {
 
     public PersistObject(int id, JSONArray json, Student student) {
         this.id = id;
-        this.json = json;
+//        this.json = json;
         this.student = student;
     }
 
@@ -52,11 +52,11 @@ public class PersistObject {
         this.id = id;
     }
 
-    public JSONArray getJson() {
-        return json;
-    }
+//    public JSONArray getJson() {
+////        return json;
+//    }
 
-    public void setJson(JSONArray json) {
-        this.json = json;
-    }
+//    public void setJson(JSONArray json) {
+//        this.json = json;
+//    }
 }

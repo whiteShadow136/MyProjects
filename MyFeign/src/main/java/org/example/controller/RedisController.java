@@ -39,6 +39,7 @@ public class RedisController {
 
     private static Map<Class<?>, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
 
+    static String sss = "abc";
 //    public RedisController(RedisTemplate redisTemplate) {
 //        this.redisTemplate = redisTemplate;
 //    }
