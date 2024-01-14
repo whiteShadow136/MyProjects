@@ -1,12 +1,18 @@
 package org.example.entity;
 
 import com.alibaba.fastjson.JSONArray;
-import com.mysql.cj.xdevapi.JsonArray;
+import lombok.Builder;
 import lombok.Data;
+import org.example.entity.enums.Result;
 import org.example.pojo.Student;
+//import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
+import org.springframework.lang.Nullable;
+//import org.hibernate.type.SqlTypes;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:org.example.entity
@@ -16,9 +22,11 @@ import javax.persistence.*;
 //@Data
 @Entity
 @Data
+//@Builder
 public class PersistObject {
 
     @Id
+    @GeneratedValue
     int id;
 
 //    @Column(columnDefinition = "jsonb")
@@ -30,14 +38,23 @@ public class PersistObject {
 //    @Column(name = "json")
 //    private JSONArray json;
 
-    @Embedded
-    private Student student;
+//    @JdbcTypeCode( SqlTypes.JSON )
+//    Map<Integer, String> source_cache;
+//
+//    @Embedded
+//    @Nullable
+//    private Student student;
+
+//    @JdbcTypeCode( SqlTypes.ARRAY )
+//    List<Integer> list;
+
+    Result result;
 
 
     public PersistObject(int id, JSONArray json, Student student) {
         this.id = id;
 //        this.json = json;
-        this.student = student;
+//        this.student = student;
     }
 
     public PersistObject() {
@@ -53,7 +70,7 @@ public class PersistObject {
     }
 
 //    public JSONArray getJson() {
-////        return json;
+//        return json;
 //    }
 
 //    public void setJson(JSONArray json) {
