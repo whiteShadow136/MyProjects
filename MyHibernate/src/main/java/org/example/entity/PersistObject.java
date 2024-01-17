@@ -3,6 +3,7 @@ package org.example.entity;
 import com.alibaba.fastjson.JSONArray;
 import lombok.Builder;
 import lombok.Data;
+import org.example.annotation.CheckString;
 import org.example.entity.enums.Result;
 import org.example.pojo.Student;
 //import org.hibernate.annotations.JdbcTypeCode;
@@ -50,6 +51,9 @@ public class PersistObject {
 
     Result result;
 
+    @CheckString
+    @Column(length = 0)
+    String name;
 
     public PersistObject(int id, JSONArray json, Student student) {
         this.id = id;

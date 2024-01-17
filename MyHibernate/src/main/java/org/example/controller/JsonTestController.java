@@ -39,6 +39,7 @@ public class JsonTestController {
         PersistObject persistObject = new PersistObject();
         persistObject.setId(1);
         persistObject.setResult(Result.FAIL);
+        persistObject.setName("A");
         entityManager.merge(persistObject);
         System.out.println(11111);
     }
