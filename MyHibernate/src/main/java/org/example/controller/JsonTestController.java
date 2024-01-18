@@ -1,7 +1,8 @@
 package org.example.controller;
 
+import org.example.entity.MyEntity;
 import org.example.entity.PersistObject;
-import org.example.entity.enums.Result;
+import org.example.enums.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,11 +37,11 @@ public class JsonTestController {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
-        PersistObject persistObject = new PersistObject();
-        persistObject.setId(1);
-        persistObject.setResult(Result.FAIL);
-        persistObject.setName("A");
-        entityManager.merge(persistObject);
+        MyEntity myEntity = new MyEntity();
+        myEntity.setId("1");
+        myEntity.setResult(Result.FAIL);
+        myEntity.setDyEnum("A");
+        entityManager.merge(myEntity);
         System.out.println(11111);
     }
 }

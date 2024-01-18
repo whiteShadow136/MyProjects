@@ -7,17 +7,24 @@ package org.example.entity;
  */
 
 import lombok.Data;
+import org.example.annotation.DynamicEnumCheck;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 @Data
-public class MyEntity {
+@DynamicEnumCheck
+public class MyEntity extends PersistObject {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
+
+    @Column(length = 255)
     private String name;
     // getters, setters, etc.
+
+    String dyEnum;
 }

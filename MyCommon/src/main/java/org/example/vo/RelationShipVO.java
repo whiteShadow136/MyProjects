@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.entity.enums.Cascade;
+import org.example.enums.Cascade;
 
 import java.io.Serializable;
 

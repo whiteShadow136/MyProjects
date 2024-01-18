@@ -1,10 +1,6 @@
 package org.example.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.example.entity.PersistObject;
 import org.example.entity.User;
-import org.example.pojo.Student;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

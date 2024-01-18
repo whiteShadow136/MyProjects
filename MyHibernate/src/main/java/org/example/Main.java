@@ -17,15 +17,15 @@ public class Main {
     public static void main(String[] args) throws JsonProcessingException {
         JSONArray jsonValues = new JSONArray();
         jsonValues.add(new User(1L, "xie", "qq"));
-        PersistObject persistObject = new PersistObject(1, jsonValues, new Student(1, "谢锦创"));
+//        PersistObject persistObject = new PersistObject(1, jsonValues, new Student(1, "谢锦创"));
 
 
 //        String s1 = JSON.toJSONString(persistObject);
 //        System.out.println(s1);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(persistObject);
-        System.out.println(s);
+//        String s = objectMapper.writeValueAsString(persistObject);
+//        System.out.println(s);
 
         System.out.println("Hello world!");
     }

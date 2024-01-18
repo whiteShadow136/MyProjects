@@ -1,19 +1,11 @@
 package org.example.entity;
 
-import com.alibaba.fastjson.JSONArray;
-import lombok.Builder;
+//import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
-import org.example.annotation.CheckString;
-import org.example.entity.enums.Result;
-import org.example.pojo.Student;
+import org.example.enums.Result;
 //import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
-import org.springframework.lang.Nullable;
 //import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Description:org.example.entity
@@ -21,14 +13,11 @@ import java.util.Map;
  * @Author:谢锦创
  */
 //@Data
-@Entity
 @Data
 //@Builder
 public class PersistObject {
 
-    @Id
-    @GeneratedValue
-    int id;
+    String id;
 
 //    @Column(columnDefinition = "jsonb")
 //    @Convert
@@ -51,25 +40,23 @@ public class PersistObject {
 
     Result result;
 
-    @CheckString
-    @Column(length = 0)
-    String name;
+    String nameEn;
 
-    public PersistObject(int id, JSONArray json, Student student) {
-        this.id = id;
-//        this.json = json;
+//    public PersistObject(int id, JSONArray json, Student student) {
+//        this.id = id;
+////        this.json = json;
 //        this.student = student;
-    }
+//    }
 
     public PersistObject() {
     }
 
 //    @JsonIgnore
-    public int getId() {
+    public String getId() {
         return id + 1;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
