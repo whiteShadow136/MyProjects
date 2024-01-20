@@ -3,9 +3,7 @@ package org.example;
 import com.alibaba.fastjson.JSONArray;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.entity.PersistObject;
 import org.example.entity.User;
-import org.example.pojo.Student;
 
 /**
  * @Description:org.example
