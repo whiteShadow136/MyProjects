@@ -9,6 +9,8 @@ import org.example.relationship.RelationShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -24,6 +26,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
+//@Order(Ordered.HIGHEST_PRECEDENCE)
 public class RelationShipDataRunner implements ApplicationRunner {
 
     @Autowired
@@ -40,21 +43,22 @@ public class RelationShipDataRunner implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        Thread.sleep(10000);
-        try {
-            Query query = entityManager.createQuery("from " + RelationShip.class.getSimpleName());
-            //        if (query.getResultList().isEmpty()) {
-                RelationShip relationShip = RelationShip.builder()
-                        .srcClass(MyEntity.class)
-                        .srcClassNameEn(MyEntity.class.getSimpleName())
-                        .targetClass(User.class)
-                        .targetClassNameEn(User.class.getSimpleName()).build();
-                entityManager.merge(relationShip);
-            //        }
-            relationShipService.refreshCache();
-        } catch (Exception e) {
-            log.error("缓存刷新失败");
-        }
+        System.out.println(11111);
+//        Thread.sleep(10000);
+//        try {
+//            Query query = entityManager.createQuery("from " + RelationShip.class.getSimpleName());
+//            //        if (query.getResultList().isEmpty()) {
+//                RelationShip relationShip = RelationShip.builder()
+//                        .srcClass(MyEntity.class)
+//                        .srcClassNameEn(MyEntity.class.getSimpleName())
+//                        .targetClass(User.class)
+//                        .targetClassNameEn(User.class.getSimpleName()).build();
+//                entityManager.merge(relationShip);
+//            //        }
+//            relationShipService.refreshCache();
+//        } catch (Exception e) {
+//            log.error("缓存刷新失败");
+//        }
 
 
     }

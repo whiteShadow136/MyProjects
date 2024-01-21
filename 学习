@@ -18,3 +18,4 @@ https://www.bilibili.com/video/BV18E411e7WJ/?vd_source=2ac6e1ae005f1ca29c98caa66
   不对，无论是哪个应用刷元数据，都得刷关系缓存。没关系，就直接放在元数据之后刷就是了。
 
   ognl --classLoaderClass com.taobao.arthas.agent.ArthasClassloader '#a=@com.taobao.arthas.core.server.ArthasBootstrap@getInstance(),#a.shellServer.commandManager' -x 4
+  org.springframework.boot.SpringApplication.callRunners
