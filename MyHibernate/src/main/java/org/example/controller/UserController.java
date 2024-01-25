@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.entity.User;
+import org.example.entity.Users;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class UserController {
 
     // 获取用户信息
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public ResponseEntity<Users> getUser(@PathVariable Long id) {
+        Optional<Users> user = userRepository.findById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
@@ -36,7 +36,7 @@ public class UserController {
     // 创建用户
     @PostMapping
     @Transactional(timeout = 6000)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<Users> createUser(@RequestBody Users user) {
         
 //        User savedUser = userRepository.save(user);
 //        JSONArray jsonArray = new JSONArray();
@@ -45,8 +45,8 @@ public class UserController {
 //        PersistObject persistObject = new PersistObject();
 //        persistObject.setJson(jsonArray);
 //        PersistObject persistObject1= entityManager.merge(persistObject);
-        entityManager.find(User.class, 1L);
-        User user1 = entityManager.merge(user);
+        entityManager.find(Users.class, 1L);
+        Users user1 = entityManager.merge(user);
         entityManager.flush();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -65,7 +65,7 @@ public class UserController {
 
     // 更新用户信息
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users user) {
         if (!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -89,7 +89,7 @@ public class UserController {
         // 假设 entityManager 是一个有效的 EntityManager 实例
         // 假设 userId 是我们想要查询的用户的 ID
 
-        User userProxy = entityManager.getReference(User.class, userId);
+        Users userProxy = entityManager.getReference(Users.class, userId);
 
         // 这时，userProxy 是一个 User 实体的代理对象，不是真实的实体
 

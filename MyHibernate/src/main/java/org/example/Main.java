@@ -3,7 +3,7 @@ package org.example;
 import com.alibaba.fastjson.JSONArray;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.entity.User;
+import org.example.entity.Users;
 
 /**
  * @Description:org.example
@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws JsonProcessingException {
         JSONArray jsonValues = new JSONArray();
-        jsonValues.add(new User(1L, "xie", "qq"));
+        jsonValues.add(new Users(1L, "xie", "qq"));
 //        PersistObject persistObject = new PersistObject(1, jsonValues, new Student(1, "谢锦创"));
 
 

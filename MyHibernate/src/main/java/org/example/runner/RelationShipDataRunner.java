@@ -2,9 +2,6 @@ package org.example.runner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.config.RedisUtil;
-import org.example.entity.MyEntity;
-import org.example.entity.RelationShip;
-import org.example.entity.User;
 import org.example.relationship.RelationShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -13,11 +10,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * @Description:org.example.runner
@@ -26,7 +20,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class RelationShipDataRunner implements ApplicationRunner {
 
     @Autowired
@@ -44,6 +38,7 @@ public class RelationShipDataRunner implements ApplicationRunner {
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
         System.out.println(11111);
+
 //        Thread.sleep(10000);
 //        try {
 //            Query query = entityManager.createQuery("from " + RelationShip.class.getSimpleName());

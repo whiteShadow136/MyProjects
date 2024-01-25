@@ -35,8 +35,8 @@ public class RedisUtil {
         return redisTemplate.opsForValue().get(redisKey);
     }
 
-    @Autowired
-    public void setEnv(@Value("${spring.profiles.active}") String env) {
-        RedisUtil.env = env;
-    }
+//    @Autowired
+//    public void setEnv(@Value("${spring.profiles.active}") String env) {
+//        RedisUtil.env = env;
+//    }
 }
