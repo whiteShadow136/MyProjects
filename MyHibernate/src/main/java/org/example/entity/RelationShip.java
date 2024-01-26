@@ -30,4 +30,5 @@ public class RelationShip {
     Class targetClass;
 
     String targetClassNameEn;
+
 }

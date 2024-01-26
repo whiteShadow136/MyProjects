@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.mysql.cj.xdevapi.JsonArray;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.example.entity.MyEntity;
-import org.example.entity.PersistObject;
 import org.example.enums.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,5 +45,25 @@ public class JsonTestController {
         myEntity.setDyEnum("A");
         entityManager.merge(myEntity);
         System.out.println(11111);
+    }
+
+    @PostMapping("/mulTest")
+    @Transactional
+    public void testMul() {
+        MyEntity myEntity = new MyEntity();
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.add("123");
+        jsonArray.add("456");
+        myEntity.setMulReference(jsonArray);
+        myEntity.setName("mul");
+        myEntity.setResult(Result.SUCCESS);
+        myEntity.setId("1");
+        entityManager.merge(myEntity);
+    }
+
+    @PostMapping("/mulTestGet/{id}")
+    public void testMulGet(@Param("id") String id) {
+        MyEntity myEntity = entityManager.find(MyEntity.class, id);
+        System.out.println(myEntity);
     }
 }

@@ -36,7 +36,7 @@ public class CheckStringValidator implements ConstraintValidator<DynamicEnumChec
 
         }
 
-        return false;
+        return true;
 //        int id = persistObject.getId();
 
 //        return true;

@@ -2,21 +2,18 @@ package org.example.hibernateType;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
-import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.jdbc.Size;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.type.ForeignKeyDirection;
 import org.hibernate.type.Type;
-import org.hibernate.usertype.UserCollectionType;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
+import java.sql.Types;
 import java.util.Map;
 
 /**
@@ -24,7 +21,7 @@ import java.util.Map;
  * @Date:2023/11/7
  * @Author:谢锦创
  */
-public class JsonArrayType implements Type {
+public class MulColumnType implements Type {
     @Override
     public boolean isAssociationType() {
         return false;
@@ -52,12 +49,12 @@ public class JsonArrayType implements Type {
 
     @Override
     public int getColumnSpan(Mapping mapping) throws MappingException {
-        return 0;
+        return 1;
     }
 
     @Override
     public int[] sqlTypes(Mapping mapping) throws MappingException {
-        return new int[0];
+        return new int[] {Types.VARCHAR};
     }
 
     @Override
@@ -67,12 +64,12 @@ public class JsonArrayType implements Type {
 
     @Override
     public Size[] defaultSizes(Mapping mapping) throws MappingException {
-        return new Size[0];
+        return new Size[1];
     }
 
     @Override
     public Class getReturnedClass() {
-        return null;
+        return MulColumnType.class;
     }
 
     @Override
@@ -132,12 +129,12 @@ public class JsonArrayType implements Type {
 
     @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index, boolean[] settable, SharedSessionContractImplementor session) throws HibernateException, SQLException {
-
+        System.out.println(1111);
     }
 
     @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
-
+        System.out.println(2222);
     }
 
     @Override
