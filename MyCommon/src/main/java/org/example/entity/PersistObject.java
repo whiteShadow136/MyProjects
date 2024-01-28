@@ -3,6 +3,8 @@ package org.example.entity;
 //import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
 import org.example.enums.Result;
+
+import java.io.Serializable;
 //import org.hibernate.annotations.JdbcTypeCode;
 //import org.hibernate.type.SqlTypes;
 

@@ -56,13 +56,6 @@ public class UserController {
         return ResponseEntity.created(location).body(user1);
     }
     
-//    private void test() {
-//        PersistObject persistObject = new PersistObject(1, false, new Student(1, "谢锦创"));
-//        PersistObject object = entityManager.merge(persistObject);
-//        entityManager.flush();
-//        System.out.println(object);
-//    }
-
     // 更新用户信息
     @PutMapping("/{id}")
     public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users user) {

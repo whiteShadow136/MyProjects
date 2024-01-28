@@ -19,3 +19,12 @@ https://www.bilibili.com/video/BV18E411e7WJ/?vd_source=2ac6e1ae005f1ca29c98caa66
 
   ognl --classLoaderClass com.taobao.arthas.agent.ArthasClassloader '#a=@com.taobao.arthas.core.server.ArthasBootstrap@getInstance(),#a.shellServer.commandManager' -x 4
   org.springframework.boot.SpringApplication.callRunners
+
+ 优化启动速度的方法
+ 1. hibernate的。。。改为none
+ 2. 能不能让启动类只扫描特地的需要的bean，像应用发布的bean应该是比较独立的，可以启动时指定扫描应用发布的包。
+ 3. 对于一些初始化的对象，先持久化起来，后面直接拿来用，可以放到redis里，或者本地磁盘。
+ 4. 有时间的话看看火焰图，看到底是哪些方面导致了启动慢。
+ 5. 应用发布调试慢，主要在于生成generateBean慢，可以在生成这些bean的时候，只生成BasicObject的和自己应用的类。
+ 6. 为什么java的序列化需要实现serialization接口，而redis的序列化不需要，序列化怎么理解。
+ 7. 代码生成的多值，还是将参考多值和枚举多值都从源头视为String处理，然后在后面自己写去生成JSONArray的逻辑，还有对于枚举的默认值，要处理一下。

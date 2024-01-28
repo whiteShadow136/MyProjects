@@ -31,13 +31,13 @@ public class RelationShipService {
     @Autowired
     private EntityManager entityManager;
 
-    @Autowired
+    @Autowired(required = false)
     RedisUtil redisUtil;
 
-    @Autowired
+    @Autowired(required = false)
     RocketMqUtil rocketMqUtil;
 
-    @Value("${rocketmq.consumer.topic}")
+    @Value("${rocketmq.consumer.topic:test}")
     String topic;
 
     public static final String relationShipKey = "relationShipKey";
