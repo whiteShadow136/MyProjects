@@ -85,6 +85,10 @@ public class SerializationController {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("D://cache"));
         Map<String, MyEntity> cache = (Map<String, MyEntity>) objectInputStream.readObject();
         System.out.println(cache);
+    }
+
+    @RequestMapping("/testReflect")
+    public void testReflect() throws IOException, ClassNotFoundException {
 
     }
 }

@@ -27,6 +27,8 @@ public class CheckStringValidator implements ConstraintValidator<DynamicEnumChec
             return false;
         } else {
             String nameEn = persistObject.getNameEn();
+            Class<? extends PersistObject> clazz = persistObject.getClass();
+//            clazz.getDeclaredField("rdmExtensionType")
             // 根据英文名称获取类型定义id
             // 根据id获取所有动态枚举属性
             // for循环动态枚举

@@ -41,8 +41,9 @@ public class JsonTestController {
         list.add(2);
         MyEntity myEntity = new MyEntity();
         myEntity.setId("1");
-        myEntity.setResult(Result.FAIL);
         myEntity.setDyEnum("A");
+        myEntity.setRdmExtensionType("DyEnumExt");
+        myEntity.setNameEn("DyEnum");
         entityManager.merge(myEntity);
         System.out.println(11111);
     }
@@ -55,8 +56,6 @@ public class JsonTestController {
         jsonArray.add("123");
         jsonArray.add("456");
         myEntity.setMulReference(jsonArray);
-        myEntity.setName("mul");
-        myEntity.setResult(Result.SUCCESS);
         myEntity.setId("1");
         entityManager.merge(myEntity);
     }

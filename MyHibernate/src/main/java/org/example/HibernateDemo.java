@@ -19,7 +19,6 @@ public class HibernateDemo {
         session.beginTransaction();
 
         MyEntity entity = new MyEntity();
-        entity.setName("Test");
         session.save(entity);
 
         session.getTransaction().commit();

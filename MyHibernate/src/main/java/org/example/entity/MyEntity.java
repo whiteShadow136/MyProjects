@@ -21,17 +21,18 @@ import javax.persistence.Id;
 @Entity
 @Data
 //@DynamicEnumCheck
-public class MyEntity extends PersistObject {
-    @Id
-    private String id;
+public class MyEntity extends BasicObject {
+//    @Id
+//    private String id;
 
-    @Nullable
-    @Column(length = 255)
-    private String name;
+//    @Nullable
+//    @Column(length = 255)
+//    private String name;
     // getters, setters, etc.
 
     @Nullable
     @Column
+//    @DynamicEnumCheck
     String dyEnum;
 
     @Nullable
@@ -41,5 +42,5 @@ public class MyEntity extends PersistObject {
 
     @Nullable
     @Column(columnDefinition = "json")
-    String testName;
+    public String testName;
 }

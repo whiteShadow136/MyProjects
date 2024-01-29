@@ -4,6 +4,8 @@ package org.example.entity;
 import lombok.Data;
 import org.example.enums.Result;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 //import org.hibernate.annotations.JdbcTypeCode;
 //import org.hibernate.type.SqlTypes;
@@ -16,10 +18,14 @@ import java.io.Serializable;
  */
 //@Data
 @Data
+@Entity
 //@Builder
 public class PersistObject {
 
-    String id;
+    @Id
+    public String id;
+
+    String nameEn;
 
 //    @Column(columnDefinition = "jsonb")
 //    @Convert
@@ -39,10 +45,6 @@ public class PersistObject {
 
 //    @JdbcTypeCode( SqlTypes.ARRAY )
 //    List<Integer> list;
-
-    Result result;
-
-    String nameEn;
 
 //    public PersistObject(int id, JSONArray json, Student student) {
 //        this.id = id;

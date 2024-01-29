@@ -18,7 +18,7 @@ import javax.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = CheckStringValidator.class)
-@Target({ TYPE })
+@Target({ FIELD, TYPE})
 @Retention(RUNTIME)
 public @interface DynamicEnumCheck {
     String message() default "Invalid string"; // 默认错误消息
