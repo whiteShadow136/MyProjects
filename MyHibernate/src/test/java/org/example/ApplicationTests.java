@@ -18,35 +18,47 @@ public class ApplicationTests {
     @Autowired
     private RelationShipService relationShipService;
 
-    List list = new ArrayList();
+    List<Integer> list = new ArrayList<>();
 
-    @Test
-    public void contextLoads() {
+//    @Test
+    public static void main(String[] args) {
+        ApplicationTests applicationTests = new ApplicationTests();
+        applicationTests.testMulThread();
+    }
+
+    void testMulThread() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        arrayList.add(4);
+//        CopyOnWriteArrayList<Integer> writeArrayList = new CopyOnWriteArrayList<>();
+        list.addAll(arrayList);
+//        list = writeArrayList;
+        new Thread(() -> {
+            test1(list);
+        }).start();
+        new Thread(() -> {
+            test1(list);
+        }).start();
+//        list.add(5);
+    }
+
+    void test1(List<Integer> list) {
+        list.clear();
         list.add(1);
         list.add(2);
         list.add(3);
         list.add(4);
-        new Thread(() -> {
-            for (Object o : list) {
-                System.out.println(1111);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        for (Integer o : list) {
+            System.out.println(o);
+            System.out.println(Thread.currentThread());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        }).start();
-        list.add(5);
-        new Thread(() -> {
-            for (Object o : list) {
-                System.out.println(1111);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
+        }
     }
 
     @Test

@@ -20,7 +20,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-//@DynamicEnumCheck
+@DynamicEnumCheck
 public class MyEntity extends BasicObject {
 //    @Id
 //    private String id;
@@ -43,4 +43,13 @@ public class MyEntity extends BasicObject {
     @Nullable
     @Column(columnDefinition = "json")
     public String testName;
+
+//    @ValidGender
+//    public String getGenderFieldForValidation() {
+//        // 你可以在这里访问整个实体的状态
+//        // ...
+//        return gender;
+//    }
+
+
 }

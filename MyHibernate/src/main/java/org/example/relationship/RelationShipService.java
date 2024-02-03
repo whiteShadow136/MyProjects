@@ -3,7 +3,9 @@ package org.example.relationship;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import org.example.config.RedisUtil;
+import org.example.entity.MyEntity;
 import org.example.entity.RelationShip;
+import org.example.entity.SysUser;
 import org.example.util.RocketMqUtil;
 import org.example.vo.RelationShipVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +30,7 @@ import java.util.concurrent.TimeoutException;
  */
 @Service
 public class RelationShipService {
+    public static ConcurrentHashMap<Class, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
 
     @Autowired
     private EntityManager entityManager;
@@ -42,7 +46,6 @@ public class RelationShipService {
 
     public static final String relationShipKey = "relationShipKey";
 
-    public static Map<Class, RelationShipVO> SOURCE_CACHE = new HashMap<>();
 
     void putRelationShipIntoCache() {
         if (SOURCE_CACHE.isEmpty()) {
@@ -50,6 +53,26 @@ public class RelationShipService {
         } else {
             refreshCache();
         }
+    }
+
+    public static void putData() {
+        ArrayList<RelationShipVO> relationShipVOS = new ArrayList<>();
+        RelationShipVO relationShipVO = new RelationShipVO();
+        relationShipVO.setSrcClass(MyEntity.class);
+        relationShipVO.setSrcAttr("MyEntity");
+        relationShipVO.setTargetAttr("MyEntity");
+        relationShipVO.setTargetClass(MyEntity.class);
+        RelationShipVO relationShipVO1 = new RelationShipVO();
+        relationShipVO1.setSrcClass(MyEntity.class);
+        relationShipVO1.setSrcAttr("MyEntity");
+        relationShipVO1.setTargetAttr("MyEntity");
+        relationShipVO1.setTargetClass(MyEntity.class);
+        relationShipVOS.add(relationShipVO);
+        relationShipVOS.add(relationShipVO1);
+        SOURCE_CACHE.clear();
+        SOURCE_CACHE.put(MyEntity.class, relationShipVOS);
+        SOURCE_CACHE.get(MyEntity.class);
+//        SOURCE_CACHE.put(SysUser.class, relationShipVO1);
     }
 
 //    @PostConstruct
@@ -63,7 +86,7 @@ public class RelationShipService {
             List<RelationShipVO> relationShipVOS = JSON.parseObject(o.toString(), new TypeReference<List<RelationShipVO>>() {
             });
             for (RelationShipVO relationShipVO : relationShipVOS) {
-                SOURCE_CACHE.put(relationShipVO.getSrcClass(), relationShipVO);
+//                SOURCE_CACHE.put(relationShipVO.getSrcClass(), relationShipVO);
             }
         }
     }

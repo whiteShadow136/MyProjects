@@ -37,7 +37,9 @@ public class RequestContextFilter1 implements Filter {
         }
         RequestContextManagerImpl requestContextManager = new RequestContextManagerImpl();
         RequestContext requestContext = new RequestContext();
-        SysUser sysUser = SysUser.builder().id(id).userName(userName).build();
+        SysUser sysUser = new SysUser();
+        sysUser.setId(id);
+        sysUser.setUserName(userName);
         requestContext.setUser(sysUser);
         requestContextManager.setRequest(requestContext);
         chain.doFilter(request, response);

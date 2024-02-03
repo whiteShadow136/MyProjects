@@ -24,8 +24,9 @@ public class RelationShipController {
     @RequestMapping("/test")
     @ResponseBody
     public void test() {
-        rocketMqUtil.send("AAA", "AAA");
-        relationShipService.refreshCache();
+        RelationShipService.putData();
+//        rocketMqUtil.send("AAA", "AAA");
+//        relationShipService.refreshCache();
     }
 
 }

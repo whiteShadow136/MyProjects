@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 @Component
 public class RocketMqUtil {
 
-    @Autowired
+    @Autowired(required = false)
     private RocketMQTemplate rocketmqTemplate;
 
     private final static String QUEUE_NAME = "RelationShipUpdate";

@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import org.example.entity.SysUser;
 import org.example.entity.Users;
 import org.example.repository.UserRepository;
+import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,22 +24,32 @@ public class UserController {
     @Autowired
     private EntityManager entityManager;
 
+    @Autowired
+    private UserService userService;
+
     // 获取用户信息
     @GetMapping("/{id}")
-    public ResponseEntity<Users> getUser(@PathVariable Long id) {
-        Optional<Users> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseBody
+    public SysUser getUser(@PathVariable String id) {
+        SysUser user = userService.getUser(id);
+        System.out.println(user);
+//        Optional<Users> user = userRepository.findById(id);
+//        if (user.isPresent()) {
+//            return ResponseEntity.ok(user.get());
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+        return user;
     }
 
     // 创建用户
-    @PostMapping
+    @PostMapping("/createUser")
+    @ResponseBody
     @Transactional(timeout = 6000)
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
-        
+    public SysUser createUser(@RequestBody SysUser user) {
+        test();
+        SysUser sysUser = entityManager.merge(user);
+        return sysUser;
 //        User savedUser = userRepository.save(user);
 //        JSONArray jsonArray = new JSONArray();
 //        JSONObject json = (JSONObject)JSONObject.toJSON(user);
@@ -45,15 +57,19 @@ public class UserController {
 //        PersistObject persistObject = new PersistObject();
 //        persistObject.setJson(jsonArray);
 //        PersistObject persistObject1= entityManager.merge(persistObject);
-        entityManager.find(Users.class, 1L);
-        Users user1 = entityManager.merge(user);
-        entityManager.flush();
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(user1.getId())
-                .toUri();
-        return ResponseEntity.created(location).body(user1);
+//        entityManager.find(SysUser.class, 1L);
+//        Users user1 = entityManager.merge(user);
+//        entityManager.flush();
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(user1.getId())
+//                .toUri();
+//        return ResponseEntity.created(location).body(user1);
+    }
+    
+    private void test() {
+        System.out.println("testJrebel");
     }
     
     // 更新用户信息
@@ -70,6 +86,7 @@ public class UserController {
     // 删除用户信息
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        System.out.println(1111);
         if (!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -77,7 +94,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{userId}")
+//    @PostMapping("/{userId}")
     public void TestHibernateCache(@PathVariable long userId) {
         // 假设 entityManager 是一个有效的 EntityManager 实例
         // 假设 userId 是我们想要查询的用户的 ID
@@ -91,7 +108,7 @@ public class UserController {
 
         // 调用 getName() 将触发 JPA 去数据库中加载 userProxy 的真实数据
         // 因此，现在 userProxy 已经被填充了真实的 User 实体数据
-        System.out.println(userProxy.getId());
+//        System.out.println(userProxy.getId());
 //        System.out.println(userName);
 //        System.out.println(userName);
 //        System.out.println(userProxy);

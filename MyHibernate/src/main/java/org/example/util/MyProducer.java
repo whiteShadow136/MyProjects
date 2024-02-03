@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyProducer {
-    @Autowired
+
+    @Autowired(required = false)
     private RocketMQTemplate rocketMQTemplate;
 
     public void send(String topic, String message) {

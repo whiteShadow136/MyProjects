@@ -26,10 +26,10 @@ public class RelationShipDataRunner implements ApplicationRunner {
     @Autowired
     private EntityManager entityManager;
 
-    @Autowired
+    @Autowired(required = false)
     RelationShipService relationShipService;
 
-    @Autowired
+    @Autowired(required = false)
     RedisUtil redisUtil;
 
     public static final String lockKey = "lock";
