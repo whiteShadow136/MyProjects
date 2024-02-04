@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.example.entity.SysUser;
 import org.example.entity.Users;
 import org.example.repository.UserRepository;
@@ -12,7 +13,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -30,16 +37,36 @@ public class UserController {
     // 获取用户信息
     @GetMapping("/{id}")
     @ResponseBody
-    public SysUser getUser(@PathVariable String id) {
-        SysUser user = userService.getUser(id);
-        System.out.println(user);
+    public SysUser getUser(@PathVariable String id) throws ExecutionException, InterruptedException {
+//        SysUser user = userService.getUser(id);
+//        System.out.println(user);
+        CompletableFuture<String> stringCompletableFuture = userService.asyncMethodA();
+        userService.asyncMethodB(stringCompletableFuture);
 //        Optional<Users> user = userRepository.findById(id);
 //        if (user.isPresent()) {
 //            return ResponseEntity.ok(user.get());
 //        } else {
 //            return ResponseEntity.notFound().build();
 //        }
-        return user;
+        List list = new ArrayList<String>();
+        list.add("id:1,type:String");
+        list.add("id:2,type:Integer");
+//        1. 使用字符串拼接
+//        StringBuilder sb = new StringBuilder("");
+//        for (int i = 0; i < list.size(); i++) {
+//            sb.append(list.get(i));
+//            if (i < list.size() - 1) {
+//                sb.append(";");
+//            }
+//        }
+//        Arrays.stream(values).findFirst()
+
+
+//        2. 使用stream流，但是好像有点慢
+//        String result = list.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(";"));
+//        result = "[" + result + "]";
+        JSON.toJSONString(list);
+        return new SysUser();
     }
 
     // 创建用户
