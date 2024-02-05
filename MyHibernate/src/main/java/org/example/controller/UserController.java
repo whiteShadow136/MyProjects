@@ -1,22 +1,19 @@
 package org.example.controller;
 
 import com.alibaba.fastjson.JSON;
-import org.example.entity.SysUser;
-import org.example.entity.Users;
+import com.alibaba.fastjson.JSONArray;
+import org.example.entity.*;
+import org.example.impl.UserServiceImpl;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.persistence.EntityManager;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -37,6 +34,7 @@ public class UserController {
     // 获取用户信息
     @GetMapping("/{id}")
     @ResponseBody
+    @Transactional
     public SysUser getUser(@PathVariable String id) throws ExecutionException, InterruptedException {
 //        SysUser user = userService.getUser(id);
 //        System.out.println(user);
@@ -67,6 +65,71 @@ public class UserController {
 //        result = "[" + result + "]";
         JSON.toJSONString(list);
         return new SysUser();
+    }
+
+    public static void main(String[] args) {
+        UserServiceImpl userService1 = new UserServiceImpl();
+//        CompletableFuture<String> stringCompletableFuture = userService1.asyncMethodA();
+//        userService1.asyncMethodB(stringCompletableFuture);
+        System.out.println(33333);
+        String s = "id:1,class:A001;id:2,class:A002";
+        String[] split = s.split(";");
+        JSONArray jsonArray = new JSONArray();
+        for (String str : split) {
+//            String referenceString = JSON.toJSONString(str);
+            String[] fields = str.split(",");
+            for (String field : fields) {
+                String id = field.split(":")[1];
+                String clazz = field.split(":")[1];
+                ObjectReference objectReference = new ObjectReference();
+                objectReference.setId(id);
+                objectReference.setClazz(clazz);
+                jsonArray.add(objectReference);
+            }
+            System.out.println(jsonArray);
+        }
+    }
+
+    @PostMapping("/getJsonArray")
+    @ResponseBody
+    @Transactional(timeout = 6000)
+    public JSONArray getJsonArray() {
+        String s = "id:1,class:A001;id:2,class:A002";
+        String[] split = s.split(";");
+        JSONArray jsonArray = new JSONArray();
+        List<ObjectReference> list = new ArrayList<>();
+        for (String str : split) {
+//            String referenceString = JSON.toJSONString(str);
+            String[] referClazz = str.split(",");
+            String id = referClazz[0].split(":")[1];
+            String clazz = referClazz[1].split(":")[1];
+            ObjectReference objectReference = new ObjectReference();
+            objectReference.setId(id);
+            objectReference.setClazz(clazz);
+            jsonArray.add(objectReference);
+            Users users = new Users();
+            users.setNameEn("A001");
+            objectReference.setReferenceObject(users);
+            list.add(objectReference);
+            System.out.println(jsonArray);
+        }
+        Users user = new Users();
+        user.setId(UUID.randomUUID().toString());
+//        user.setName(JSON.toJSONString(list));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            stringBuilder.append("id" + ":" + list.get(i).getId());
+            stringBuilder.append(",");
+            stringBuilder.append("clazz" + ":" + list.get(i).getClazz());
+            stringBuilder.append(";");
+        }
+        String result = list.stream()
+                .map(ref -> "id:" + ref.getId() + ",clazz:" + ref.getClazz())
+                .collect(Collectors.joining(";"));
+        user.setName(result);
+        user.setEmail(jsonArray.toJSONString());
+        entityManager.merge(user);
+        return jsonArray;
     }
 
     // 创建用户
@@ -101,10 +164,7 @@ public class UserController {
     
     // 更新用户信息
     @PutMapping("/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users user) {
-        if (!userRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Users> updateUser(@PathVariable String id, @RequestBody Users user) {
         user.setId(id);
         userRepository.save(user);
         return ResponseEntity.noContent().build();

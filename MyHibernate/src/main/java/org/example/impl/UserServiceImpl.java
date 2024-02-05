@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Async
+    @Transactional
     public CompletableFuture<String> asyncMethodA() {
         // ...
         try {
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Async
+    @Transactional
     public CompletableFuture<String> asyncMethodB(CompletableFuture<String> completableFuture) {
         try {
             completableFuture.get();
