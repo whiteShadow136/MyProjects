@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class ThreadPoolConfig {
 
-    @Bean
+    @Bean("MyThreadPoolExecutor")
     public ThreadPoolTaskExecutor threadPoolExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         // 初始线程数，也是最小线程数

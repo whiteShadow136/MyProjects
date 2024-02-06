@@ -5,14 +5,18 @@ import org.example.event.PostStoreEvent;
 import org.example.event.PreStoreEvent;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Description:org.example.impl
@@ -28,6 +32,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
+    @Autowired
+    @Qualifier("MyThreadPoolExecutor")
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
     @Override
     @Transactional
     public SysUser getUser(String id) {
@@ -38,20 +46,29 @@ public class UserServiceImpl implements UserService {
         return sysUser;
     }
 
-    @Async
+//    @Async
     @Transactional
     public CompletableFuture<String> asyncMethodA() {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println(11111);
+            return "asyncMethodA";
+        }, threadPoolTaskExecutor);
         // ...
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(11111);
-        return CompletableFuture.completedFuture("asyncMethodA");
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//        System.out.println(11111);
+//        return CompletableFuture.completedFuture("asyncMethodA");
     }
 
-    @Async
+//    @Async
     @Transactional
     public CompletableFuture<String> asyncMethodB(CompletableFuture<String> completableFuture) {
         try {
