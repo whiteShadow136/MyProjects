@@ -1,8 +1,11 @@
 package org.example.config;
 
 import org.apache.tomcat.util.threads.ThreadPoolExecutor;
+import org.example.util.RequestContext;
+import org.example.util.RequestContextManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -26,7 +29,26 @@ public class ThreadPoolConfig {
         // 队列的最大长度
         threadPoolTaskExecutor.setQueueCapacity(100);
         threadPoolTaskExecutor.setThreadNamePrefix("custom-thread-%d");
+        threadPoolTaskExecutor.setTaskDecorator(new MyTaskDecorator());
         threadPoolTaskExecutor.initialize();
         return threadPoolTaskExecutor;
+    }
+
+    class MyTaskDecorator implements TaskDecorator {
+
+        @Override
+        public Runnable decorate(Runnable runnable) {
+            RequestContext current = RequestContextManager.getCurrent();
+            return () -> {
+                try {
+                    RequestContextManager.setCurrent(current);
+                    // 在执行任务前设置上下文
+                    runnable.run();
+                } finally {
+                    // 任务执行后清理上下文
+                    RequestContextManager.remove();
+                }
+            };
+        }
     }
 }

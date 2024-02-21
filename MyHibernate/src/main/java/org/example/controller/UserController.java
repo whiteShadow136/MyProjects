@@ -2,12 +2,15 @@ package org.example.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import org.example.config.ThreadPoolConfig;
 import org.example.entity.*;
 import org.example.impl.UserServiceImpl;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
@@ -31,15 +34,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    @Qualifier("MyThreadPoolExecutor")
+    ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
     // 获取用户信息
     @GetMapping("/{id}")
     @ResponseBody
     @Transactional
     public SysUser getUser(@PathVariable String id) throws ExecutionException, InterruptedException {
 //        SysUser user = userService.getUser(id);
-//        System.out.println(user);
-        CompletableFuture<String> stringCompletableFuture = userService.asyncMethodA();
-        userService.asyncMethodB(stringCompletableFuture);
+//        System.out.println(1111);
+//        userService.asyncMethodA();
+        CompletableFuture<Object> objectCompletableFuture = CompletableFuture.supplyAsync(() -> {
+                    userService.asyncMethodA();
+                    return null;
+                },
+                threadPoolTaskExecutor);
+//        Object o = objectCompletableFuture.get();
+        userService.asyncMethodB();
 //        Optional<Users> user = userRepository.findById(id);
 //        if (user.isPresent()) {
 //            return ResponseEntity.ok(user.get());

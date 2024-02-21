@@ -4,6 +4,8 @@ import org.example.entity.SysUser;
 import org.example.event.PostStoreEvent;
 import org.example.event.PreStoreEvent;
 import org.example.service.UserService;
+import org.example.util.RequestContext;
+import org.example.util.RequestContextManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
@@ -11,12 +13,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Description:org.example.impl
@@ -46,18 +44,21 @@ public class UserServiceImpl implements UserService {
         return sysUser;
     }
 
-//    @Async
+    @Async
     @Transactional
-    public CompletableFuture<String> asyncMethodA() {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println(11111);
-            return "asyncMethodA";
-        }, threadPoolTaskExecutor);
+    public void asyncMethodA() {
+        System.out.println(1111);
+        RequestContext current = RequestContextManager.getCurrent();
+        System.out.println(current);
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            System.out.println(11111);
+//            return "asyncMethodA";
+//        }, threadPoolTaskExecutor);
         // ...
 //        try {
 //            Thread.sleep(2000);
@@ -68,18 +69,20 @@ public class UserServiceImpl implements UserService {
 //        return CompletableFuture.completedFuture("asyncMethodA");
     }
 
-//    @Async
+    @Async
     @Transactional
-    public CompletableFuture<String> asyncMethodB(CompletableFuture<String> completableFuture) {
-        try {
-            completableFuture.get();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+    public void asyncMethodB() {
+//        try {
+//            completableFuture.get();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        } catch (ExecutionException e) {
+//            throw new RuntimeException(e);
+//        }
         // ...
         System.out.println(22222);
-        return CompletableFuture.completedFuture("asyncMethodA");
+        RequestContext current = RequestContextManager.getCurrent();
+        System.out.println(current);
+//        return CompletableFuture.completedFuture("asyncMethodA");
     }
 }

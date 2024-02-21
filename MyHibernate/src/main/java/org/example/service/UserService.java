@@ -13,7 +13,7 @@ public interface UserService {
 
     public SysUser getUser(String id);
 
-    public CompletableFuture<String> asyncMethodA();
+    public void asyncMethodA();
 
-    public CompletableFuture<String> asyncMethodB(CompletableFuture<String> completableFuture);
+    public void asyncMethodB();
 }
