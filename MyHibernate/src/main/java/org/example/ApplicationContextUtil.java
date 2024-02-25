@@ -18,8 +18,9 @@ public class ApplicationContextUtil {
     @Autowired
     Environment environment;
 
-    static Object getBean(Class clazz) {
-        return context.getBean(clazz);
+    public static<T> T getBean(Class<T> clazz) {
+        T bean = context.getBean(clazz);
+        return bean;
     }
 
     public static Environment getEnvironment(@Autowired Environment environment) {

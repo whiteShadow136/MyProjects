@@ -6,6 +6,8 @@ import org.example.enums.Result;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import java.io.Serializable;
 //import org.hibernate.annotations.JdbcTypeCode;
 //import org.hibernate.type.SqlTypes;
@@ -19,6 +21,7 @@ import java.io.Serializable;
 //@Data
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //@Builder
 public class PersistObject {
 

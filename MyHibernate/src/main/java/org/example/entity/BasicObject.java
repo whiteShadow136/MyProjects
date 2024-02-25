@@ -5,6 +5,8 @@ import org.example.annotation.DynamicEnumCheck;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  * @Description:org.example.entity
@@ -13,7 +15,8 @@ import javax.persistence.Id;
  */
 @Entity
 @Data
-@DynamicEnumCheck
+//@DynamicEnumCheck
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class BasicObject extends PersistObject {
     String rdmExtensionType;
 

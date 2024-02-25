@@ -1,19 +1,27 @@
 package org.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mysql.cj.xdevapi.JsonArray;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.example.entity.MyEntity;
 import org.example.enums.Result;
+import org.example.event.PostStoreEvent;
+import org.example.listener.PostStoreListener;
+import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * @Description:org.example.controller
@@ -27,25 +35,28 @@ public class JsonTestController {
     @Autowired
     EntityManager entityManager;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @PostMapping("/jsonTest")
     @Transactional
-    public void jsonTest() {
-        // 生成一个jsonObject字符串
-        HashMap<Integer, String> cache = new HashMap<>();
-        cache.put(1, "1");
-        cache.put(2, "1");
-        cache.put(3, "1");
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
+    @ResponseBody
+    public MyEntity jsonTest() {
         MyEntity myEntity = new MyEntity();
-        myEntity.setId("1");
+        myEntity.setId(UUID.randomUUID().toString());
         myEntity.setDyEnum("A");
         myEntity.setRdmExtensionType("DyEnumExt");
         myEntity.setNameEn("DyEnum");
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", 1);
+        jsonObject.put("clazz", MyEntity.class);
+        jsonArray.add(jsonObject);
+        myEntity.setMulReference(jsonArray);
         entityManager.merge(myEntity);
-        System.out.println(11111);
+        entityManager.flush();
+        applicationEventPublisher.publishEvent(new PostStoreEvent(myEntity));
+        return myEntity;
     }
 
     @PostMapping("/mulTest")

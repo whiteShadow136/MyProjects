@@ -13,13 +13,11 @@ import org.example.annotation.DynamicEnumCheck;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DynamicEnumCheck
 public class MyEntity extends BasicObject {
 //    @Id
@@ -36,7 +34,7 @@ public class MyEntity extends BasicObject {
     String dyEnum;
 
     @Nullable
-    @Type(type = "org.example.hibernateType.MulColumnType")
+    @Type(type = "org.example.hibernateType.JsonType")
     @Column(columnDefinition = "Varchar(255)")
     JSONArray mulReference;
 
