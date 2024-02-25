@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mysql.cj.xdevapi.JsonArray;
 import io.lettuce.core.dynamic.annotation.Param;
+import org.apache.commons.lang3.time.DateUtils;
 import org.example.entity.MyEntity;
 import org.example.enums.Result;
 import org.example.event.PostStoreEvent;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -53,6 +57,14 @@ public class JsonTestController {
         jsonObject.put("clazz", MyEntity.class);
         jsonArray.add(jsonObject);
         myEntity.setMulReference(jsonArray);
+        JSONArray jsonArrayTest = new JSONArray();
+        JSONObject jsonObjectTest = new JSONObject();
+        jsonObjectTest.put("id", 1);
+        jsonObjectTest.put("name", 2);
+        jsonArrayTest.add(jsonObjectTest);
+        myEntity.setJsonArrayTest(jsonArrayTest);
+        myEntity.setCreateTime(LocalDateTime.now());
+        myEntity.setLastUpdateTime(LocalDateTime.now());
         entityManager.merge(myEntity);
         entityManager.flush();
         applicationEventPublisher.publishEvent(new PostStoreEvent(myEntity));

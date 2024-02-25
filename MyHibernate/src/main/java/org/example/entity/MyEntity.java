@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DynamicEnumCheck
+//@DynamicEnumCheck
 public class MyEntity extends BasicObject {
 //    @Id
 //    private String id;
@@ -37,6 +37,11 @@ public class MyEntity extends BasicObject {
     @Type(type = "org.example.hibernateType.JsonType")
     @Column(columnDefinition = "Varchar(255)")
     JSONArray mulReference;
+
+    @Nullable
+    @Type(type = "org.example.hibernateType.JsonArrayType")
+    @Column(columnDefinition = "Varchar(255)")
+    JSONArray JsonArrayTest;
 
     @Nullable
     @Column(columnDefinition = "json")

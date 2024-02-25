@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 //import org.hibernate.annotations.JdbcTypeCode;
 //import org.hibernate.type.SqlTypes;
 
@@ -29,6 +31,10 @@ public class PersistObject {
     public String id;
 
     String nameEn;
+
+    LocalDateTime createTime;
+
+    LocalDateTime lastUpdateTime;
 
 //    @Column(columnDefinition = "jsonb")
 //    @Convert

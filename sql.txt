@@ -1,0 +1,11 @@
+drop procedure if exists test;
+delimiter //
+
+create procedure test()
+begin
+declare nameTest varchar(255);
+    select name into nameTest from user where id = 1;
+    select concat('alter table ',nameTest,'_', nameEn, 'alter column ', rdmExtensionType, 'type varchar(255);') from MyEntity;
+end //
+
+delimiter ;
