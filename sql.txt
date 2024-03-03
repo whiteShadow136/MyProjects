@@ -9,3 +9,39 @@ declare nameTest varchar(255);
 end //
 
 delimiter ;
+
+
+
+-- pg函数
+drop function alter_column_to_text_if_exists;
+
+CREATE OR REPLACE FUNCTION alter_column_to_text_if_exists(
+    tableName VARCHAR,
+    columnName VARCHAR
+)
+    RETURNS void AS $$
+DECLARE
+    schemaName VARCHAR := current_schema(); -- 获取当前schema
+BEGIN
+    -- 检查列是否存在
+    IF EXISTS (
+            SELECT 1
+            FROM information_schema.columns
+            WHERE table_schema = schemaName
+              AND table_name = tableName
+              AND column_name = columnName
+        ) THEN
+        -- 如果列存在，则执行ALTER TABLE修改列类型
+        EXECUTE format('ALTER TABLE %I.%I ALTER COLUMN %I TYPE TEXT', schemaName, tableName, columnName);
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT alter_column_to_text_if_exists('department', 'jsonStrings');
+
+alter table department alter column "jsonStrings" type varchar(200);
+
+
+select column_name, data_type from
+    information_schema.columns
+where table_name = 'department'
