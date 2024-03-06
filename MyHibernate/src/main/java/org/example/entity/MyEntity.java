@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@DynamicEnumCheck
+@DynamicEnumCheck
 public class MyEntity extends BasicObject {
 //    @Id
 //    private String id;

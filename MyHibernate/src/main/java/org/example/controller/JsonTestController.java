@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
@@ -42,10 +44,18 @@ public class JsonTestController {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
+    public JsonTestController() {
+//        try {
+//            Thread.sleep(20000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+    }
+
     @PostMapping("/jsonTest")
     @Transactional
     @ResponseBody
-    public MyEntity jsonTest() {
+    public MyEntity jsonTest(@RequestBody  MyEntity myEntity1) {
         MyEntity myEntity = new MyEntity();
         myEntity.setId(UUID.randomUUID().toString());
         myEntity.setDyEnum("A");
@@ -67,7 +77,7 @@ public class JsonTestController {
         myEntity.setLastUpdateTime(LocalDateTime.now());
         entityManager.merge(myEntity);
         entityManager.flush();
-        applicationEventPublisher.publishEvent(new PostStoreEvent(myEntity));
+//        applicationEventPublisher.publishEvent(new PostStoreEvent(myEntity));
         return myEntity;
     }
 

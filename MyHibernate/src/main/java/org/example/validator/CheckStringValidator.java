@@ -5,6 +5,7 @@ package org.example.validator;
  * @Date:2024/1/18
  * @Author:谢锦创
  */
+import org.apache.commons.lang3.StringUtils;
 import org.example.ApplicationContextUtil;
 import org.example.annotation.DynamicEnumCheck;
 import org.example.entity.PersistObject;
@@ -47,6 +48,12 @@ public class CheckStringValidator implements ConstraintValidator<DynamicEnumChec
                 return false;
             } else {
                 String nameEn = persistObject.getNameEn();
+                if (StringUtils.isNotEmpty(nameEn)) {
+                    context.disableDefaultConstraintViolation();
+                    context.buildConstraintViolationWithTemplate("referecnce cannot be null")
+                            .addConstraintViolation();
+                    return false;
+                }
                 Class<? extends PersistObject> clazz = persistObject.getClass();
                 Users users = new Users();
                 users.setId(UUID.randomUUID().toString());
