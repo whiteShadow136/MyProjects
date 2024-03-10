@@ -45,11 +45,11 @@ public class JsonTestController {
     private ApplicationEventPublisher applicationEventPublisher;
 
     public JsonTestController() {
-//        try {
-//            Thread.sleep(20000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/jsonTest")

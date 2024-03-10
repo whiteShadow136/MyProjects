@@ -34,11 +34,5 @@ https://www.cnblogs.com/javastack/p/17308988.html
 
  感觉这跟服务太多占用内存没大关系，idea内存跟自己服务的内存是不相关的。微服务的项目，在启动的时候卡顿是因为要扫描的文件太多导致的，把configuration里的shorten command line设成classpath，你会发现启动项目快的飞起
 
- List<Object> parameters = new ArrayList<>();
- parameters.add(1);
- List<Object> list = new ArrayList<>();
- list.add(2);
- list.add("3");
- parameters.add(list);
- String pattern = "Welcome, {0}! Today is {1}.";
- String formattedMessage = MessageFormat.format(pattern, parameters.toArray());
+ -- 启动耗时监控
+ https://juejin.cn/post/6904085505789394957

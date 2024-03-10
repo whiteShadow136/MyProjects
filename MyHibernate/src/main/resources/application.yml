@@ -10,6 +10,11 @@ spring:
         max-active: 32
         min-idle: 8
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: startup
 
 #spring:
 #  redis:

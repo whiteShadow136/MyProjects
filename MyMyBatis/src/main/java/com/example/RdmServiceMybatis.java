@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.controller.MyBatisDemo;
 import com.example.util.ApplicationContextUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.annotation.Annotation;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -20,27 +22,12 @@ import java.util.ArrayList;
  */
 @SpringBootApplication
 @ImportResource("classpath:applicationContext.xml")
+@Slf4j
 public class RdmServiceMybatis {
     public static void main(String[] args) {
-// Create a ConfigurableApplicationContext object and assign it to the context variable
+        log.info("开始启动时间{}", LocalDateTime.now());
         ConfigurableApplicationContext context = SpringApplication.run(RdmServiceMybatis.class);
-    MyEvent myEvent = new MyEvent("AA");
-        context.publishEvent(myEvent);
-
-// Assign the application context to the applicationContextUtil
-        ApplicationContextUtil.applicationContext = context;
-        ArrayList<Object> list = new ArrayList<>();
-        // 遍历list并输出结果
-        // 生成判断是否为字母的正则
-        list.add("user");
-//        AnnotationUtils.findAnnotation()
-
-//        MyBatisDemo myBatisDemo = new MyBatisDemo();
-//        myBatisDemo.userExecute("user", 1);
-//        myBatisDemo.userExecute("user", 2);
-//        myBatisDemo.userExecute("user", 3);
-//        myBatisDemo.userExecute("user", 4);
-//        myBatisDemo.userExecute("user", 5);
-//        myBatisDemo.userExecute("user", 6);
+        log.info("结束启动时间{}", LocalDateTime.now());
+        log.info("启动成功");
     }
 }

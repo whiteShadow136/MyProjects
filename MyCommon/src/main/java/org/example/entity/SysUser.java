@@ -19,4 +19,6 @@ public class SysUser {
     String id;
 
     String userName;
+
+    int age;
 }

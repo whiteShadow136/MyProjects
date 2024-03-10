@@ -14,16 +14,16 @@
     </select>
 
     <insert id="insertUser" parameterType="com.example.User">
-        INSERT INTO User (id, name, age)
+        INSERT INTO user (id, name, age)
         VALUES (#{id}, #{name}, #{age})
     </insert>
 
     <update id="updateUser" parameterType="com.example.User">
-        UPDATE com.example.User SET name = #{name}, age = #{age} WHERE id = #{id}
+        UPDATE user SET name = #{name}, age = #{age} WHERE id = #{id}
     </update>
 
     <delete id="deleteUserById" parameterType="int">
-        DELETE FROM com.example.User WHERE id = #{id}
+        DELETE FROM user WHERE id = #{id}
     </delete>
 
 </mapper>
