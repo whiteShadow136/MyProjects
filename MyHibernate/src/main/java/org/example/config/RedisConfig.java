@@ -26,7 +26,8 @@ public class RedisConfig {
         // 设置value的序列化规则和 key的序列化规则
         template.setValueSerializer(serializer);
         template.setKeySerializer(new StringRedisSerializer());
-
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(serializer);
         template.afterPropertiesSet();
         return template;
     }

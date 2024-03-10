@@ -8,12 +8,15 @@ package org.example.entity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.example.annotation.DynamicEnumCheck;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -23,8 +26,7 @@ public class MyEntity extends BasicObject {
 //    @Id
 //    private String id;
 
-//    @Nullable
-//    @Column(length = 255)
+//    @Nullable//    @Column(length = 255)
 //    private String name;
     // getters, setters, etc.
 
@@ -54,5 +56,27 @@ public class MyEntity extends BasicObject {
 //        return gender;
 //    }
 
+    public static MyEntity getRandomInstance() {
+        MyEntity myEntity = new MyEntity();
+        myEntity.setId(UUID.randomUUID().toString().replace("-", ""));
+        myEntity.setDyEnum("A");
+        myEntity.setRdmExtensionType("DyEnumExt");
+        myEntity.setNameEn("DyEnum");
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", 1);
+        jsonObject.put("clazz", MyEntity.class);
+        jsonArray.add(jsonObject);
+        myEntity.setMulReference(jsonArray);
+        JSONArray jsonArrayTest = new JSONArray();
+        JSONObject jsonObjectTest = new JSONObject();
+        jsonObjectTest.put("id", 1);
+        jsonObjectTest.put("name", 2);
+        jsonArrayTest.add(jsonObjectTest);
+        myEntity.setJsonArrayTest(jsonArrayTest);
+        myEntity.setCreateTime(LocalDateTime.now());
+        myEntity.setLastUpdateTime(LocalDateTime.now());
+        return myEntity;
+    }
 
 }
