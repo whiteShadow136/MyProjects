@@ -36,3 +36,6 @@ https://www.cnblogs.com/javastack/p/17308988.html
 
  -- 启动耗时监控
  https://juejin.cn/post/6904085505789394957
+
+  ognl '@org.example.relationship.RelationShipService@SOURCE_CACHE.values().toString()'
+  getstatic org.example.relationship.RelationShipService SOURCE_CACHE 'entrySet().iterator.{? #this.key.getSimpleName().equals("Users") }'

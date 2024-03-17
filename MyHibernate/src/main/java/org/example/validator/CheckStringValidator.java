@@ -36,9 +36,9 @@ public class CheckStringValidator implements ConstraintValidator<DynamicEnumChec
     @Override
     @Transactional(propagation= Propagation.REQUIRES_NEW)
     public boolean isValid(PersistObject persistObject, ConstraintValidatorContext context) {
-        SessionFactory sessionFactory = ApplicationContextUtil.getBean(SessionFactory.class);
+//        SessionFactory sessionFactory = ApplicationContextUtil.getBean(SessionFactory.class);
         try {
-            EntityManager entityManager1 = ApplicationContextUtil.getBean(EntityManager.class);
+//            EntityManager entityManager1 = ApplicationContextUtil.getBean(EntityManager.class);
 //            sessionFactory.getCurrentSession().setFlushMode(FlushMode.MANUAL);
             // 在这里实现校验逻辑
             if (persistObject == null) {
@@ -48,23 +48,23 @@ public class CheckStringValidator implements ConstraintValidator<DynamicEnumChec
                 return false;
             } else {
                 String nameEn = persistObject.getNameEn();
-                if (StringUtils.isNotEmpty(nameEn)) {
-                    context.disableDefaultConstraintViolation();
-                    context.buildConstraintViolationWithTemplate("referecnce cannot be null")
-                            .addConstraintViolation();
-                    return false;
-                }
+//                if (StringUtils.isNotEmpty(nameEn)) {
+//                    context.disableDefaultConstraintViolation();
+//                    context.buildConstraintViolationWithTemplate("referecnce cannot be null")
+//                            .addConstraintViolation();
+//                    return false;
+//                }
                 Class<? extends PersistObject> clazz = persistObject.getClass();
                 Users users = new Users();
                 users.setId(UUID.randomUUID().toString());
                 users.setName("test");
-                entityManager1.merge(users);
-                entityManager1.find(Users.class, "1");
+//                entityManager1.merge(users);
+//                entityManager1.find(Users.class, "1");
                 String hql = "from Users";
-                Query query = entityManager1.createQuery(hql);
-                List resultList = query.getResultList();
+//                Query query = entityManager1.createQuery(hql);
+//                List resultList = query.getResultList();
                 //            entityManager1.flush();
-                System.out.println(resultList);
+//                System.out.println(resultList);
                 //            clazz.getDeclaredField("rdmExtensionType")
                 // 根据英文名称获取类型定义id
                 // 根据id获取所有动态枚举属性

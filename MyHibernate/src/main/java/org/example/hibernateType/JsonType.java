@@ -1,5 +1,6 @@
 package org.example.hibernateType;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
@@ -32,6 +33,7 @@ public class JsonType implements UserType {
 
     @Override
     public Class returnedClass() {
+        System.out.println("返回类型");
         return JSONArray.class;
     }
 
@@ -48,7 +50,8 @@ public class JsonType implements UserType {
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         System.out.println(1111);
-        return null;
+        String result = rs.getString(names[0]);
+        return JSONArray.parseArray(result);
     }
 
     @Override

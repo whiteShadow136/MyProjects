@@ -6,6 +6,7 @@ import org.example.config.RedisUtil;
 import org.example.entity.MyEntity;
 import org.example.entity.RelationShip;
 import org.example.entity.SysUser;
+import org.example.entity.Users;
 import org.example.util.RocketMqUtil;
 import org.example.vo.RelationShipVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 /**
  * @Description:org.example.relationship
@@ -30,7 +32,7 @@ import java.util.concurrent.TimeoutException;
  */
 @Service
 public class RelationShipService {
-    public static ConcurrentHashMap<Class, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Class, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
 
     @Autowired
     private EntityManager entityManager;
@@ -63,9 +65,9 @@ public class RelationShipService {
         relationShipVO.setTargetAttr("MyEntity");
         relationShipVO.setTargetClass(MyEntity.class);
         RelationShipVO relationShipVO1 = new RelationShipVO();
-        relationShipVO1.setSrcClass(MyEntity.class);
-        relationShipVO1.setSrcAttr("MyEntity");
-        relationShipVO1.setTargetAttr("MyEntity");
+        relationShipVO1.setSrcClass(Users.class);
+        relationShipVO1.setSrcAttr("MyEntity1");
+        relationShipVO1.setTargetAttr("MyEntity1");
         relationShipVO1.setTargetClass(MyEntity.class);
         relationShipVOS.add(relationShipVO);
         relationShipVOS.add(relationShipVO1);

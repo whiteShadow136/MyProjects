@@ -32,6 +32,7 @@ public class JsonArrayType implements UserType {
 
     @Override
     public Class returnedClass() {
+        System.out.println("获取类型");
         return JSONArray.class;
     }
 
@@ -48,7 +49,8 @@ public class JsonArrayType implements UserType {
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         System.out.println(1111);
-        return null;
+        String result = rs.getString(names[0]);
+        return result;
     }
 
     @Override

@@ -14,14 +14,12 @@ import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.websocket.server.PathParam;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,11 +43,11 @@ public class JsonTestController {
     private ApplicationEventPublisher applicationEventPublisher;
 
     public JsonTestController() {
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(20000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @PostMapping("/jsonTest")
@@ -94,8 +92,10 @@ public class JsonTestController {
     }
 
     @PostMapping("/mulTestGet/{id}")
-    public void testMulGet(@Param("id") String id) {
+    @ResponseBody
+    public MyEntity testMulGet(@PathVariable("id") String id) {
         MyEntity myEntity = entityManager.find(MyEntity.class, id);
         System.out.println(myEntity);
+        return myEntity;
     }
 }
