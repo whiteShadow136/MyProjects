@@ -39,3 +39,5 @@ https://www.cnblogs.com/javastack/p/17308988.html
 
   ognl '@org.example.relationship.RelationShipService@SOURCE_CACHE.values().toString()'
   getstatic org.example.relationship.RelationShipService SOURCE_CACHE 'entrySet().iterator.{? #this.key.getSimpleName().equals("Users") }'
+
+  https://www.bilibili.com/video/BV1MT4y1t7PR/?spm_id_from=333.999.0.0&vd_source=1ecf8f5436d67a394f7310abee50bbd8
