@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,6 +51,30 @@ public class JsonTestController {
 //        }
     }
 
+    public static void main(String[] args) {
+        JsonTestController jsonTestController = new JsonTestController();
+        jsonTestController.test();
+    }
+
+    public void test() {
+        TestReflect myEntity = new TestReflect("11111");
+        try {
+            Field bean = myEntity.getClass().getDeclaredField("bean");
+//            testName.set(myEntity, "1111");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    class TestReflect{
+        private final Object bean;
+
+        public TestReflect(Object bean) {
+            this.bean = bean;
+        }
+    }
+
+
     @PostMapping("/jsonTest")
     @Transactional
     @ResponseBody
@@ -58,7 +83,7 @@ public class JsonTestController {
         myEntity.setId(UUID.randomUUID().toString());
         myEntity.setDyEnum("A");
         myEntity.setRdmExtensionType("DyEnumExt");
-        myEntity.setNameEn("DyEnum");
+        myEntity.setNameEn("\\");
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", 1);
@@ -73,10 +98,10 @@ public class JsonTestController {
         myEntity.setJsonArrayTest(jsonArrayTest);
         myEntity.setCreateTime(LocalDateTime.now());
         myEntity.setLastUpdateTime(LocalDateTime.now());
-        entityManager.merge(myEntity);
-        entityManager.flush();
+//        entityManager.merge(myEntity);
+//        entityManager.flush();
 //        applicationEventPublisher.publishEvent(new PostStoreEvent(myEntity));
-        return myEntity;
+        return myEntity1;
     }
 
     @PostMapping("/mulTest")
@@ -95,6 +120,7 @@ public class JsonTestController {
     @ResponseBody
     public MyEntity testMulGet(@PathVariable("id") String id) {
         MyEntity myEntity = entityManager.find(MyEntity.class, id);
+        myEntity.setDyEnum("\\");
         System.out.println(myEntity);
         return myEntity;
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://cxf.apache.org/jaxrs
+           http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <!-- 定义你的服务bean -->
+    <bean id="helloService" class="org.example.service.HelloService"/>
+
+    <!-- 定义CXF JAX-RS服务器 -->
+    <jaxrs:server id="restContainer" address="/api">
+        <jaxrs:serviceBeans>
+            <ref bean="helloService"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+    <!-- 可以根据需要添加更多的配置，例如拦截器、特定的参数处理器等 -->
+</beans>

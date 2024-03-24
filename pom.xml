@@ -24,6 +24,7 @@
         <module>MySwaggers</module>
         <module>MyEureka</module>
         <module>MyFeign</module>
+        <module>MyCXF</module>
     </modules>
 
     <properties>
