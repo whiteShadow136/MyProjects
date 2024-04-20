@@ -126,7 +126,36 @@
             <version>3.6.6</version>
         </dependency>
 
-<!--        <dependency>-->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+            <version>1.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+
+
+        <!--        <dependency>-->
 <!--            <groupId>org.glassfish</groupId>-->
 <!--            <artifactId>jakarta.el</artifactId>-->
 <!--            <version>3.0.3</version> &lt;!&ndash; 请根据实际情况使用合适的版本 &ndash;&gt;-->

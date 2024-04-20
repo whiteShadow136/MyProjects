@@ -33,21 +33,21 @@ public class MyEntity extends BasicObject {
     @Nullable
     @Column
 //    @DynamicEnumCheck
-    String dyEnum;
+    private String dyEnum;
 
     @Nullable
     @Type(type = "org.example.hibernateType.JsonType")
     @Column(columnDefinition = "Varchar(255)")
-    JSONArray mulReference;
+    private JSONArray mulReference;
 
     @Nullable
     @Type(type = "org.example.hibernateType.JsonArrayType")
     @Column(columnDefinition = "Varchar(255)")
-    JSONArray JsonArrayTest;
+    private JSONArray JsonArrayTest;
 
     @Nullable
     @Column(columnDefinition = "json")
-    public String testName;
+    private String testName;
 
 //    @ValidGender
 //    public String getGenderFieldForValidation() {

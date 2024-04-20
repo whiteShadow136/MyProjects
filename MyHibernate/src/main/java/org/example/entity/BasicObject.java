@@ -18,6 +18,6 @@ import javax.persistence.InheritanceType;
 //@DynamicEnumCheck
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class BasicObject extends PersistObject {
-    String rdmExtensionType;
+    private String rdmExtensionType;
 
 }

@@ -28,13 +28,13 @@ import java.time.LocalDateTime;
 public class PersistObject {
 
     @Id
-    public String id;
+    private String id;
 
-    String nameEn;
+    private String nameEn;
 
-    LocalDateTime createTime;
+    private LocalDateTime createTime;
 
-    LocalDateTime lastUpdateTime;
+    private LocalDateTime lastUpdateTime;
 
 //    @Column(columnDefinition = "jsonb")
 //    @Convert

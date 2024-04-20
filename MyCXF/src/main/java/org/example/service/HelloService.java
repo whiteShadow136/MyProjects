@@ -12,10 +12,11 @@ public class HelloService {
 
     @POST
     @Path("/sayHello")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
 //    @ResponseBody
-    public TestEntity sayHello(@RequestBody TestEntity testEntity) {
-        return testEntity;
+//    public TestEntity sayHello(@RequestBody TestEntity testEntity) {
+    public String sayHello(String str) {
+        return str;
     }
 }

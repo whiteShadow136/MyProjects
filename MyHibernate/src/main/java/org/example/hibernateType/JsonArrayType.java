@@ -50,6 +50,9 @@ public class JsonArrayType implements UserType {
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         System.out.println(1111);
         String result = rs.getString(names[0]);
+        if (Objects.nonNull(result)) {
+            return JSONArray.parseArray(result);
+        }
         return result;
     }
 

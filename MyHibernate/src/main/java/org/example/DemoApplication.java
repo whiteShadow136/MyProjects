@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Indexed;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @EnableAsync
 @EntityScan("org.example.entity")
 @SpringBootApplication
+@EnableAspectJAutoProxy
 @ServletComponentScan
 public class DemoApplication {
 
