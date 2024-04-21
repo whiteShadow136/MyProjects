@@ -125,15 +125,9 @@ public class JsonTestController {
         String jpql = "from MyEntity";
         Query query = entityManager.createQuery(jpql);
         List<MyEntity> resultList = query.getResultList();
-        Field mulReference = ReflectionUtils.findField(MyEntity.class, "id");
-//        mulReference.setAccessible(true);
-        ReflectionUtils.makeAccessible(mulReference);
+
         for (MyEntity myEntity: resultList) {
-            try {
-                System.out.println(mulReference.get(myEntity));
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+            processReturn(myEntity);
 //            entityManager.find(MyEntity.class, "1");
         }
 
@@ -141,5 +135,15 @@ public class JsonTestController {
 //        myEntity.setDyEnum("\\");
 //        System.out.println(myEntity);
         return resultList.get(0);
+    }
+
+    private void processReturn(MyEntity myEntity) {
+        Field mulReference = ReflectionUtils.findField(MyEntity.class, "id");
+//        ReflectionUtils.makeAccessible(mulReference);
+        try {
+            System.out.println(mulReference.get(myEntity));
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
