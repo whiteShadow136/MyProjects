@@ -1,0 +1,26 @@
+drop function calculate_average();
+CREATE OR REPLACE function calculate_average()
+    RETURNS void
+ AS $$
+DECLARE
+    ids INT;
+    names varchar(25);
+    cursors cursor for SELECT id FROM test_pg;
+BEGIN
+    drop table if exists test1;
+    create table test1(id int ,name varchar(25));
+    open cursors;
+    loop
+        fetch cursors into ids;
+        EXIT WHEN NOT FOUND;
+        select nameEn into names from test_pg where id = ids;
+        insert into test1 values (ids, names);
+    end loop;
+    close cursors;
+    return;
+END;
+$$ LANGUAGE plpgsql;
+
+select calculate_average();
+
+select * from test1;
