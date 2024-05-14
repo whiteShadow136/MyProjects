@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @className: RedisController
@@ -43,29 +45,32 @@ public class RedisController {
 //    }
 
     @GetMapping("save")
-    public Result save(String key, String value){
-        System.out.println(1111);
+    public Result save(@RequestParam String key,@RequestParam String value){
+        redisTemplate.expire(key, 24, TimeUnit.HOURS);
+        for (int i = 0; i <= 100; i++) {
+            redisTemplate.opsForValue().get(key);
+        }
 //        System.out.println(2222);
         redisTemplate.opsForValue().set(key, value);
-        List<RelationShipVO> relationShipVos = getRelationShipVo();
-        SOURCE_CACHE.put(SysUser.class, relationShipVos);
-        SOURCE_CACHE.put(SysClass.class, relationShipVos);
-        String sourceCache = JSON.toJSONString(SOURCE_CACHE, SerializerFeature.DisableCircularReferenceDetect);
-        redisTemplate.opsForValue().set(key, sourceCache);
-        redisTemplate.persist(key);
-        redisTemplate.opsForValue().get(key);
-//        JSON.parseObject(redisTemplate.opsForValue().get(key), new TypeReference<Map<String, List<RelationShipVO>>>(){})
-        String json = redisTemplate.opsForValue().get(key).toString();
-        Map<String, List<RelationShipVO>> tempMap = JSON.parseObject(json, new TypeReference<Map<String, List<RelationShipVO>>>(){});
-        Map<Class, List<RelationShipVO>> resultMap = new HashMap<>();
-        for (Map.Entry<String, List<RelationShipVO>> entry : tempMap.entrySet()) {
-            try {
-                Class cls = Class.forName(entry.getKey());
-                resultMap.put(cls, entry.getValue());
-            } catch (ClassNotFoundException e) {
-                // 处理异常，类找不到
-            }
-        }
+//        List<RelationShipVO> relationShipVos = getRelationShipVo();
+//        SOURCE_CACHE.put(SysUser.class, relationShipVos);
+//        SOURCE_CACHE.put(SysClass.class, relationShipVos);
+//        String sourceCache = JSON.toJSONString(SOURCE_CACHE, SerializerFeature.DisableCircularReferenceDetect);
+//        redisTemplate.opsForValue().set(key, sourceCache);
+//        redisTemplate.persist(key);
+//        redisTemplate.opsForValue().get(key);
+////        JSON.parseObject(redisTemplate.opsForValue().get(key), new TypeReference<Map<String, List<RelationShipVO>>>(){})
+//        String json = redisTemplate.opsForValue().get(key).toString();
+//        Map<String, List<RelationShipVO>> tempMap = JSON.parseObject(json, new TypeReference<Map<String, List<RelationShipVO>>>(){});
+//        Map<Class, List<RelationShipVO>> resultMap = new HashMap<>();
+//        for (Map.Entry<String, List<RelationShipVO>> entry : tempMap.entrySet()) {
+//            try {
+//                Class cls = Class.forName(entry.getKey());
+//                resultMap.put(cls, entry.getValue());
+//            } catch (ClassNotFoundException e) {
+//                // 处理异常，类找不到
+//            }
+//        }
     return Result.SUCCESS;
     }
 

@@ -13,6 +13,8 @@ import org.example.listener.PostStoreListener;
 import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,13 +36,16 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("json")
-public class JsonTestController {
+public class JsonTestController implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     EntityManager entityManager;
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    private TransactionTest transactionTest;
 
     ThreadLocal<HashMap<String, String>> enumThreadLocal = new ThreadLocal<>();
 
@@ -65,6 +70,11 @@ public class JsonTestController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        transactionTest.test2();
     }
 
     class TestReflect{
