@@ -9,18 +9,18 @@ import org.example.enums.Cascade;
 import org.example.enums.Result;
 import org.example.vo.RelationShipVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @className: RedisController
@@ -47,6 +47,22 @@ public class RedisController {
     @GetMapping("save")
     public Result save(@RequestParam String key,@RequestParam String value){
         redisTemplate.expire(key, 24, TimeUnit.HOURS);
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+        redisTemplate.opsForHash().put("global","A:B:C", "D");
+        redisTemplate.opsForHash().put("global","A:B:D", "D");
+        redisTemplate.opsForHash().put("global","A:B:E", "D");
+        redisTemplate.opsForHash().put("global","A:C:E", "D");
+
+        HashOperations<String, String, Object> hashOps = redisTemplate.opsForHash();
+// 获取符合前缀条件的所有键
+        hashOps.keys("global").stream()
+                .filter(per -> key.startsWith("A:B"))
+                .forEach(per -> hashOps.delete("global", key));
+
+        List keys = (List) redisTemplate.opsForHash().keys("global").stream().
+                filter(per -> per.toString().startsWith("A:B")).collect(Collectors.toList());
+        redisTemplate.opsForHash().delete("global", keys);
         for (int i = 0; i <= 100; i++) {
             redisTemplate.opsForValue().get(key);
         }
