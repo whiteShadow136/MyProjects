@@ -2,15 +2,10 @@ package org.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.mysql.cj.xdevapi.JsonArray;
-import io.lettuce.core.dynamic.annotation.Param;
-import org.apache.commons.lang3.time.DateUtils;
 import org.example.entity.MyEntity;
-import org.example.enums.Result;
-import org.example.event.PostStoreEvent;
-import org.example.listener.PostStoreListener;
-import org.hibernate.id.UUIDGenerator;
+import org.example.util.ApplicationContextUtil;
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
@@ -19,15 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import javax.websocket.server.PathParam;
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description:org.example.controller
@@ -131,15 +124,35 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
 
     @PostMapping("/mulTestGet/{id}")
     @ResponseBody
+//    @Transactional
     public MyEntity testMulGet(@PathVariable("id") String id) {
         String jpql = "from MyEntity";
         Query query = entityManager.createQuery(jpql);
         List<MyEntity> resultList = query.getResultList();
+        resultList = resultList.stream().limit(250).collect(Collectors.toList());
+//        LocalSessionFactoryBean bean = ApplicationContextUtil.getBean(LocalSessionFactoryBean.class);
+//        HibernateUtil.
+        SessionFactory sessionFactory = ApplicationContextUtil.getBean(SessionFactory.class);
+        Statistics statistics = sessionFactory.getStatistics();
+        statistics.setStatisticsEnabled(true); // 开启统计信息
+//        statistics.getEntityStatistics("org.example.entity.MyEntity")
 
-        for (MyEntity myEntity: resultList) {
-            processReturn(myEntity);
-//            entityManager.find(MyEntity.class, "1");
+// 调用 find 方法
+//        statistics.logSummary();
+        for (MyEntity myEntity : resultList) {
+            entityManager.find(MyEntity.class, myEntity.getId());
         }
+
+        for (MyEntity myEntity : resultList) {
+            entityManager.find(MyEntity.class, myEntity.getId());
+        }
+
+
+
+//        for (MyEntity myEntity: resultList) {
+//            processReturn(myEntity);
+//            entityManager.find(MyEntity.class, "1");
+//        }
 
 //        MyEntity myEntity = entityManager.find(MyEntity.class, id);
 //        myEntity.setDyEnum("\\");

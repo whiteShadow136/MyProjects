@@ -41,3 +41,6 @@ https://www.cnblogs.com/javastack/p/17308988.html
   getstatic org.example.relationship.RelationShipService SOURCE_CACHE 'entrySet().iterator.{? #this.key.getSimpleName().equals("Users") }'
 
   https://www.bilibili.com/video/BV1MT4y1t7PR/?spm_id_from=333.999.0.0&vd_source=1ecf8f5436d67a394f7310abee50bbd8
+
+
+  编写脚本语言可以用 C, sql, plpgsql, python等,脚本里存在控制语句 如 if then 等时，必须选择脚本的 language 为plpgsql, 并且函数体头尾要加上begin  end

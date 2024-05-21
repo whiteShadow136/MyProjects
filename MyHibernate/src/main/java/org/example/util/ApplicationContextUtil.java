@@ -1,7 +1,10 @@
-package org.example;
+package org.example.util;
 
 import org.hibernate.cfg.Environment;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +14,12 @@ import org.springframework.stereotype.Component;
  * @Author:谢锦创
  */
 @Component
-public class ApplicationContextUtil {
+public class ApplicationContextUtil implements ApplicationContextAware {
 
-    public static ConfigurableApplicationContext context = null;
+    public static ApplicationContext context = null;
 
-    @Autowired
-    Environment environment;
+//    @Autowired
+//    Environment environment;
 
     public static<T> T getBean(Class<T> clazz) {
         T bean = context.getBean(clazz);
@@ -25,5 +28,10 @@ public class ApplicationContextUtil {
 
     public static Environment getEnvironment(@Autowired Environment environment) {
         return environment;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
     }
 }

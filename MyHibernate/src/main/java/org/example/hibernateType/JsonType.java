@@ -65,7 +65,7 @@ public class JsonType implements UserType {
 
     @Override
     public Object deepCopy(Object value) throws HibernateException {
-        System.out.println("进行了深拷贝");
+//        System.out.println("进行了深拷贝");
 //        if (value == null) {
 //            return null;
 //        }

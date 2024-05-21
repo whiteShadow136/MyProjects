@@ -40,9 +40,13 @@ public class RedisController {
     private static Map<Class<?>, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
 
     static String sss = "abc";
-//    public RedisController(RedisTemplate redisTemplate) {
-//        this.redisTemplate = redisTemplate;
-//    }
+    public RedisController() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @GetMapping("save")
     public Result save(@RequestParam String key,@RequestParam String value){
