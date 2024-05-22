@@ -23,11 +23,11 @@ public class ThreadPoolConfig {
     public ThreadPoolTaskExecutor threadPoolExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         // 初始线程数，也是最小线程数
-        threadPoolTaskExecutor.setCorePoolSize(5);
+        threadPoolTaskExecutor.setCorePoolSize(2);
         // 能同时运行的最大线程数
-        threadPoolTaskExecutor.setMaxPoolSize(10);
+        threadPoolTaskExecutor.setMaxPoolSize(3);
         // 队列的最大长度
-        threadPoolTaskExecutor.setQueueCapacity(100);
+        threadPoolTaskExecutor.setQueueCapacity(2);
         threadPoolTaskExecutor.setThreadNamePrefix("custom-thread-%d");
         threadPoolTaskExecutor.setTaskDecorator(new MyTaskDecorator());
         threadPoolTaskExecutor.initialize();

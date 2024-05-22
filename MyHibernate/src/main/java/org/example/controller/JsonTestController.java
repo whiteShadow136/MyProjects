@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -122,8 +123,15 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
         entityManager.merge(myEntity);
     }
 
+    @PostMapping("/testAsync")
+    @ResponseBody
+    public void test1() {
+        testMulGet("1");
+    }
+
     @PostMapping("/mulTestGet/{id}")
     @ResponseBody
+    @Async
 //    @Transactional
     public MyEntity testMulGet(@PathVariable("id") String id) {
         String jpql = "from MyEntity";
@@ -157,6 +165,7 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
 //        MyEntity myEntity = entityManager.find(MyEntity.class, id);
 //        myEntity.setDyEnum("\\");
 //        System.out.println(myEntity);
+        System.out.println("refresh to the end");
         return resultList.get(0);
     }
 

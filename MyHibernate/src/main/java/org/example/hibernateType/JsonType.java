@@ -49,7 +49,6 @@ public class JsonType implements UserType {
 
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
-        System.out.println(1111);
         String result = rs.getString(names[0]);
         return JSONArray.parseArray(result);
     }
