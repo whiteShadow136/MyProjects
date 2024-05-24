@@ -10,4 +10,8 @@ import lombok.Data;
 @Data
 public class TestEntity {
     String nameEn;
+
+    public TestEntity() {
+        System.out.println("this is MyJava");
+    }
 }

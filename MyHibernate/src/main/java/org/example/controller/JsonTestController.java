@@ -2,6 +2,7 @@ package org.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.example.TestEntity;
 import org.example.entity.MyEntity;
 import org.example.util.ApplicationContextUtil;
 import org.hibernate.SessionFactory;
@@ -111,6 +112,14 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
         return myEntity1;
     }
 
+    @PostMapping("/testLoadClass")
+    @Transactional
+    public void testLoadClass() {
+        TestEntity testEntity = new TestEntity("1111");
+        System.out.println(testEntity);
+    }
+
+
     @PostMapping("/mulTest")
     @Transactional
     public void testMul() {
@@ -125,8 +134,10 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
 
     @PostMapping("/testAsync")
     @ResponseBody
-    public void test1() {
-        testMulGet("1");
+    public String test1() {
+        JsonTestController bean = ApplicationContextUtil.getBean(JsonTestController.class);
+        bean.testMulGet("1");
+        return "SUCCESS";
     }
 
     @PostMapping("/mulTestGet/{id}")

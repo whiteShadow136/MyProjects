@@ -24,9 +24,9 @@ import java.time.LocalDateTime;
 public class DemoApplication {
 
     public static void main(String[] args) {
-//        ClassPathXmlApplicationContext classPathXmlApplicationContext = new
-//                MyClassPathXmlExtend("spring-${xing${name}}.xml");
-//        System.out.println(1111);
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new
+                MyClassPathXmlExtend("spring-${xing${name}}.xml");
+        System.out.println(1111);
 
         System.out.println(LocalDateTime.now());
         ConfigurableApplicationContext context = new SpringApplicationBuilder(DemoApplication.class)
