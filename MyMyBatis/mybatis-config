@@ -9,7 +9,7 @@
 <!--&lt;!&ndash;            <transactionManager type="JDBC" />&ndash;&gt;-->
 <!--&lt;!&ndash;            <dataSource type="com.alibaba.druid.pool.DruidDataSource">&ndash;&gt;-->
 <!--&lt;!&ndash;                <property name="driver" value="com.mysql.jdbc.Driver" />&ndash;&gt;-->
-<!--&lt;!&ndash;                <property name="url" value="jdbc:mysql://139.159.189.207:3306/mydatabase" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <property name="url" value="jdbc:mysql://106.55.56.96:3306/mydatabase" />&ndash;&gt;-->
 <!--&lt;!&ndash;                <property name="username" value="root" />&ndash;&gt;-->
 <!--&lt;!&ndash;                <property name="password" value="qq" />&ndash;&gt;-->
 <!--&lt;!&ndash;            </dataSource>&ndash;&gt;-->

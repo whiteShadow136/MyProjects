@@ -10,7 +10,7 @@ public class FileUploadClient {
 
     public static void main(String[] args) {
         String fileToUpload = "D:\\test\\uploadTest\\1.txt";
-        String serverUrl = "http://139.159.189.207:8000/upload";
+        String serverUrl = "http://106.55.56.96:8000/upload";
 
         try {
             File file = new File(fileToUpload);

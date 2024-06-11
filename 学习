@@ -46,3 +46,7 @@ https://www.cnblogs.com/javastack/p/17308988.html
   编写脚本语言可以用 C, sql, plpgsql, python等,脚本里存在控制语句 如 if then 等时，必须选择脚本的 language 为plpgsql, 并且函数体头尾要加上begin  end
 
   应该提供单独刷某个租户缓存sdk的接口，因为有单独刷某个租户元数据的接口，在单独刷某个租户的元数据之后应该刷对应缓存sdk。
+
+  curl 'http://localhost:8080/actuator/startup' -X POST | jq '[.timeline.events | sort_by(.duration) | reverse[] | select(.startupStep.name | match("spring.beans.instantiate")) | {beanName: .startupStep.tags[0].value, duration: .duration}] | .[:10]'
+
+   hibernate控制打印sql的类org.hibernate.engine.jdbc.spi.SqlStatementLogger.logStatement(java.lang.String)

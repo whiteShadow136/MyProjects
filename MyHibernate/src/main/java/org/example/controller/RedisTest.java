@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -33,22 +34,23 @@ public class RedisTest {
 
 
     @RequestMapping("/test")
+    @ResponseBody
     public void putAndGetObject() {
         MyEntity myEntity = MyEntity.getRandomInstance();
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = (Map<String, Object>) JSON.toJSON(myEntity);
         SysClass sysClass = SysClass.getRandomInstance();
         map.put(sysClass.getClass().getName(), sysClass);
-        redisTemplate.opsForHash().putAll(myEntity.getNameEn(), map);
-        BoundHashOperations hashOperations = redisTemplate.boundHashOps(myEntity.getNameEn());
-        hashOperations.putAll(map);
-        Object o = hashOperations.get(myEntity.getNameEn());
-        System.out.println(map);
-
-        MyEntityVo myEntityVo = MyEntityVo.getRandomInstance();
-        String nameEn = myEntityVo.getMyEntity().getNameEn();
-        redisTemplate.opsForValue().set(nameEn, myEntityVo);
-        Object o1 = redisTemplate.opsForValue().get(nameEn);
-        System.out.println(myEntityVo);;
+        redisTemplate.opsForHash().putAll(myEntity.getNameEn() + "1", map);
+//        BoundHashOperations hashOperations = redisTemplate.boundHashOps(myEntity.getNameEn());
+//        hashOperations.putAll(map);
+//        Object o = hashOperations.get(myEntity.getNameEn());
+//        System.out.println(map);
+//
+//        MyEntityVo myEntityVo = MyEntityVo.getRandomInstance();
+//        String nameEn = myEntityVo.getMyEntity().getNameEn();
+//        redisTemplate.opsForValue().set(nameEn, myEntityVo);
+//        Object o1 = redisTemplate.opsForValue().get(nameEn);
+//        System.out.println(myEntityVo);;
     }
 }

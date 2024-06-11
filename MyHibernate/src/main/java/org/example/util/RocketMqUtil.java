@@ -2,6 +2,7 @@ package org.example.util;
 
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 @Component
 public class RocketMqUtil {
 
+    @Lazy
     @Autowired(required = false)
     private RocketMQTemplate rocketmqTemplate;
 
@@ -27,7 +29,7 @@ public class RocketMqUtil {
 
 //    public static void send() throws IOException, TimeoutException {
 //        ConnectionFactory factory = new ConnectionFactory();
-//        factory.setHost("139.159.189.207");
+//        factory.setHost("106.55.56.96");
 //        try (Connection connection = factory.newConnection();
 //             Channel channel = connection.createChannel()) {
 //            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
@@ -39,7 +41,7 @@ public class RocketMqUtil {
 
 //    public static void Receive() throws IOException, TimeoutException {
 //        ConnectionFactory factory = new ConnectionFactory();
-//        factory.setHost("139.159.189.207");
+//        factory.setHost("106.55.56.96");
 //        Connection connection = factory.newConnection();
 //        Channel channel = connection.createChannel();
 //

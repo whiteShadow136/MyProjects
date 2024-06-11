@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id = "myDataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://139.159.189.207:3306/mydatabase"/>
+        <property name="url" value="jdbc:mysql://106.55.56.96:3306/mydatabase"/>
         <property name="username" value="root"/>
         <property name="password" value="qq"/>
         <property name="minEvictableIdleTimeMillis" value="51000"/>

@@ -15,18 +15,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 
-@Service
-@ConditionalOnProperty(name = "rocketmq.consumer.topic")
-@RocketMQMessageListener(
-        topic = "${rocketmq.consumer.topic}",
-        consumerGroup = "${rocketmq.consumer.group}",
-        selectorType = SelectorType.TAG,
-        selectorExpression = "*",
-        consumeMode = ConsumeMode.CONCURRENTLY
-)
+//@Service
+//@ConditionalOnProperty(name = "rocketmq.consumer.topic")
+//@RocketMQMessageListener(
+//        topic = "${rocketmq.consumer.topic}",
+//        consumerGroup = "${rocketmq.consumer.group}",
+//        selectorType = SelectorType.TAG,
+//        selectorExpression = "*",
+//        consumeMode = ConsumeMode.CONCURRENTLY
+//)
 public class MyConsumer implements RocketMQListener<String> {
 
-    @Autowired(required = false)
+//    @Autowired(required = false)
     RelationShipService relationShipService;
 
     @Override

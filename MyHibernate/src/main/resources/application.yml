@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: 139.159.189.207
+    host: 106.55.56.96
     port: 6379
     password: qq
     database: 0

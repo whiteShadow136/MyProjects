@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://139.159.189.207/mydatabase</property>
+        <property name="hibernate.connection.url">jdbc:mysql://106.55.56.96/mydatabase</property>
 <!--        <property name="show_sql">true</property>-->
         <property name="hbm2ddl.auto">update</property>
         <property name="format_sql">true</property>
