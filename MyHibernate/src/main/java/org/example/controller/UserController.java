@@ -7,6 +7,7 @@ import org.example.entity.*;
 import org.example.impl.UserServiceImpl;
 import org.example.repository.UserRepository;
 import org.example.service.UserService;
+import org.example.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -78,6 +79,26 @@ public class UserController {
 //        result = "[" + result + "]";
         JSON.toJSONString(list);
         return new SysUser();
+    }
+
+    @RequestMapping
+    @ResponseBody
+    @Transactional
+    public void createUserVoTest() {
+        UserVoTest userVoTest = new UserVoTest();
+        userVoTest.setId(UUID.randomUUID().toString());
+        UserVo userVo = new UserVo("1", "测试");
+        userVoTest.setUserVo(userVo);
+        userVoTest.setEmail("844497663@qq.com");
+        entityManager.persist(userVoTest);
+    }
+
+    @RequestMapping("/getUserVoTest")
+    @ResponseBody
+    @Transactional
+    public UserVoTest getUserVoTest() {
+        UserVoTest userVoTest = entityManager.find(UserVoTest.class, "dcb9033c-8439-42a7-b670-677010e050f9");
+        return userVoTest;
     }
 
     public static void main(String[] args) {

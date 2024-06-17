@@ -50,3 +50,6 @@ https://www.cnblogs.com/javastack/p/17308988.html
   curl 'http://localhost:8080/actuator/startup' -X POST | jq '[.timeline.events | sort_by(.duration) | reverse[] | select(.startupStep.name | match("spring.beans.instantiate")) | {beanName: .startupStep.tags[0].value, duration: .duration}] | .[:10]'
 
    hibernate控制打印sql的类org.hibernate.engine.jdbc.spi.SqlStatementLogger.logStatement(java.lang.String)
+
+   要搞清楚在service层要返回什么数据，service层返回一个String就够了，还是返回一个对象，如果service层就要返回一个对象地话，那么entity的人员类型
+   就得修改为userVo
