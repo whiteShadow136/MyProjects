@@ -47,6 +47,11 @@ public class UserController {
 //        SysUser user = userService.getUser(id);
 //        System.out.println(1111);
 //        userService.asyncMethodA();
+        SysUser sysUser = new SysUser();
+        sysUser.setId(UUID.randomUUID().toString());
+        sysUser.setUserName("test");
+        sysUser.setAge(18);
+        entityManager.persist(sysUser);
         CompletableFuture<Object> objectCompletableFuture = CompletableFuture.supplyAsync(() -> {
                     userService.asyncMethodA();
                     return null;
