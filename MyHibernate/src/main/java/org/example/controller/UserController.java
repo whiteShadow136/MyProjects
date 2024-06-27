@@ -100,9 +100,11 @@ public class UserController {
 
     @RequestMapping("/getUserVoTest")
     @ResponseBody
+//    @Transactional(readOnly = true)
     @Transactional
     public UserVoTest getUserVoTest() {
         UserVoTest userVoTest = entityManager.find(UserVoTest.class, "dcb9033c-8439-42a7-b670-677010e050f9");
+        userVoTest.setEmail("ccc2222ccc1111");
         return userVoTest;
     }
 

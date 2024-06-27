@@ -42,11 +42,11 @@ public class HelloController {
         user.setName("test");
         user.setAge(18);
         userMapper.insertUser(user);
-        CompletableFuture<Object> objectCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                    userService.asyncMethodA();
-                    return null;
-                },
-                threadPoolTaskExecutor);
+//        CompletableFuture<Object> objectCompletableFuture = CompletableFuture.supplyAsync(() -> {
+//                    userService.asyncMethodA();
+//                    return null;
+//                },
+//                threadPoolTaskExecutor);
 //
         return "test";
     }

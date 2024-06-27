@@ -14,4 +14,12 @@ public abstract class GenericObservable implements Observable{
     public GenericObservable() {
         initBeObserved();
     }
+
+    public void addBeObserver(Class<? extends BeObservable> clazz) {
+        beObserverds.add(clazz);
+    }
+
+    public void deleteBeObserver(Class<? extends BeObservable> clazz) {
+        beObserverds.remove(clazz);
+    }
 }

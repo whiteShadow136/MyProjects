@@ -18,6 +18,7 @@ public class GrassObserver extends GenericObservable{
 
     @Override
     public void initBeObserved() {
+        addBeObserver(Wind.class);
         beObserverds.add(Wind.class);
         beObserverds.add(Fire.class);
     }
