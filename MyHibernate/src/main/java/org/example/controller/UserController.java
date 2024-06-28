@@ -86,7 +86,7 @@ public class UserController {
         return new SysUser();
     }
 
-    @RequestMapping
+    @RequestMapping("/create")
     @ResponseBody
     @Transactional
     public void createUserVoTest() {
