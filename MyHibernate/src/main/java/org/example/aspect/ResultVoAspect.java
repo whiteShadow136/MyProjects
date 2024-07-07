@@ -20,6 +20,9 @@ public class ResultVoAspect {
     @Pointcut("execution(* org.example.controller..*(..))")
     public void monitor(){}
 
+    @Pointcut("execution(* org.example.service..*(..))")
+    public void monitorService(){}
+
     @Around("monitor()")
     public Object monitorExeTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
@@ -28,6 +31,20 @@ public class ResultVoAspect {
 
         log.info("Method [{}] executed in [{}] ms", joinPoint.getSignature().toShortString(), elapsedTime);
         System.out.println("ResultVoAspect");
+        return result;
+    }
+
+//    @Around("monitorService()")
+    public Object monitorService(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object result = null;
+        try {
+//            Thread.sleep(1000);
+            result = joinPoint.proceed();
+        } catch (Exception e) {
+
+        } finally {
+            log.info("停顿了3秒");
+        }
         return result;
     }
 

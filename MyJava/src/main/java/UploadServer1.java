@@ -12,11 +12,11 @@ public class UploadServer1 {
             new File("/uploads").mkdirs();
         }
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(5005), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(65000), 0);
         server.createContext("/upload", new UploadHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-        System.out.println("Server started on port 5005");
+        System.out.println("Server started on port 65000");
     }
 
     static class UploadHandler implements HttpHandler {

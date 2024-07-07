@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public SysUser getUser(String id) {
         SysUser sysUser = entityManager.find(SysUser.class, id);
-        applicationEventPublisher.publishEvent(new PreStoreEvent(sysUser));
+//        applicationEventPublisher.publishEvent(new PreStoreEvent(sysUser));
         System.out.println(sysUser);
-        applicationEventPublisher.publishEvent(new PostStoreEvent(sysUser));
+//        applicationEventPublisher.publishEvent(new PostStoreEvent(sysUser));
         return sysUser;
     }
 

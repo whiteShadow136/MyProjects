@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.TestEntity;
 import org.example.entity.MyEntity;
+import org.example.entity.SysUser;
+import org.example.impl.UserServiceImpl;
+import org.example.service.UserService;
 import org.example.util.ApplicationContextUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
@@ -13,6 +16,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,8 +76,17 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     }
 
     @Override
+//    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        transactionTest.test2();
+        System.out.println(1111);
+//        PlatformTransactionManager transactionManager = ApplicationContextUtil.getBean(PlatformTransactionManager.class);
+//        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+//        def.setName("MyTransaction");
+//        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+//        TransactionStatus status = transactionManager.getTransaction(def);
+//        transactionTest.test2();
+//        transactionManager.commit(status);
     }
 
     class TestReflect{
@@ -119,6 +136,13 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
         System.out.println(testEntity);
     }
 
+    @PostMapping("/testAop")
+    @Transactional
+    public void testAop() {
+        UserService userService = ApplicationContextUtil.getBean(UserService.class);
+        SysUser user = userService.getUser("1");
+        System.out.println(user);
+    }
 
     @PostMapping("/mulTest")
     @Transactional
