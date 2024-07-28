@@ -14,7 +14,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: startup
+        include: "*"
+#        startup
 
 #spring:
 #  redis:

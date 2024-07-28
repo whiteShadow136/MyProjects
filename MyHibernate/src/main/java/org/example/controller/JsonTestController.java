@@ -11,9 +11,11 @@ import org.example.util.ApplicationContextUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -49,6 +51,10 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
 
     @Autowired
     private TransactionTest transactionTest;
+
+    @Autowired
+    @Qualifier("redisTemplate")
+    private RedisTemplate redisTemplate;
 
     ThreadLocal<HashMap<String, String>> enumThreadLocal = new ThreadLocal<>();
 
@@ -132,6 +138,7 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     @PostMapping("/testLoadClass")
     @Transactional
     public void testLoadClass() {
+        redisTemplate.opsForValue().set("11","111");
         TestEntity testEntity = new TestEntity("1111");
         System.out.println(testEntity);
     }

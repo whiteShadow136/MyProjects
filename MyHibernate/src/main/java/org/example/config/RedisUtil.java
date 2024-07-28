@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class RedisUtil {
 
     @Autowired(required = false)
-    @Qualifier("fastJsonRedisTemplate")
+//    @Qualifier("fastJsonRedisTemplate")
     RedisTemplate redisTemplate;
 
     private static String env;

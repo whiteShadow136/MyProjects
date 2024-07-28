@@ -25,6 +25,7 @@
         <module>MyEureka</module>
         <module>MyFeign</module>
         <module>MyCXF</module>
+        <module>MyMonitor</module>
     </modules>
 
     <properties>
