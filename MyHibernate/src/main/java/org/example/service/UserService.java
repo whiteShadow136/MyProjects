@@ -11,9 +11,9 @@ import java.util.concurrent.CompletableFuture;
  */
 public interface UserService {
 
-    public SysUser getUser(String id);
+    SysUser getUser(String id);
 
-    public void asyncMethodA();
+    void asyncMethodA();
 
-    public void asyncMethodB();
+    void asyncMethodB();
 }

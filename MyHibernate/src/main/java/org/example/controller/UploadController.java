@@ -22,8 +22,8 @@ import java.net.URL;
 @RestController
 public class UploadController {
 
-    @RequestMapping
-    public void uploadFile(@RequestParam String path,@RequestParam String ip,@RequestParam String port) {
+    @RequestMapping("/upload")
+    public String uploadFile(@RequestParam String path,@RequestParam String ip,@RequestParam String port) {
         String serverUrl = "http://".concat(ip).concat(":").concat(port).concat("/upload");
 
         try {
@@ -31,7 +31,9 @@ public class UploadController {
             uploadFile(file, serverUrl);
         } catch (Exception e) {
             e.printStackTrace();
+            return e.getMessage();
         }
+        return "SUCCESS";
     }
 
 
