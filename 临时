@@ -1,0 +1,103 @@
+https://github.com/whiteShadow136/drawio.git
+https://github.com/whiteShadow136/drawio/tree/main
+UML语法
+https://macintosh-c.github.io/2020/04/20/MarkDown/markdown%E8%AF%AD%E6%B3%951/
+
+前台用户创建一条数据实例，如果传入的用户属性存在值，那么就使用这个值，如果不存在，那么就判断这个用户属性是
+否存在默认值，如果存在，就从元数据缓存中取出默认值并赋值，然后往下走，这个用户属性的值记为account
+(接下来我需要根据这个account封装成一个完整的用户对象并返回)。
+首先我从redis中获取account对应的对象，如果获取不到，我就从数据库的user表中查找，如果获取的到，
+那么就将这个对象缓存到redis中，然后返回，如果获取不到，那么我就调用第三方接口来查询这个account是否存在对应的对象，
+如果存在，那么我就把这个返回的对象存储到数据库的user表中并返回，比如不存在，就提示报错用户账号不合法
+   用户流程图
+   graph TD
+       A[开始] --> B{用户属性存在值吗?}
+       B -- 是 --> C[使用传入的值并赋值给account]
+       C --> H[从Redis获取account对应的对象]
+       B -- 否 --> D{存在默认值吗?}
+       D -- 是 --> E[从元数据缓存中取默认值并赋值给account]
+       E --> H
+       D -- 否 --> H
+
+       H --> I{Redis中找到对象吗?}
+       I -- 是 --> J[返回Redis中的对象]
+       I -- 否 --> K[从数据库查找account对应的对象]
+       K --> L{数据库中找到对象吗?}
+       L -- 是 --> M[缓存对象到Redis]
+       M --> N[返回数据库中的对象]
+       L -- 否 --> O[调用第三方接口查询account对应的对象]
+       O --> P{第三方接口找到对象吗?}
+       P -- 是 --> Q[存储对象到数据库]
+       Q --> R[返回第三方接口中的对象]
+       P -- 否 --> S[提示报错: 用户账号不合法]
+
+       J --> T[结束]
+       N --> T
+       R --> T
+       S --> T
+
+
+ssid
+sequenceDiagram
+    participant User as 用户
+    participant Frontend as 前台系统
+    participant MetadataCache as 元数据缓存
+    participant Redis as Redis缓存
+    participant Database as 数据库
+    participant ThirdPartyAPI as 第三方接口
+
+    User ->> Frontend: 创建数据实例请求
+    Frontend ->> Frontend: 检查用户属性是否存在值
+    alt 用户属性存在值
+        Frontend ->> Frontend: 使用传入的值并赋值给account
+    else 用户属性不存在值
+        Frontend ->> MetadataCache: 获取默认值
+        MetadataCache -->> Frontend: 返回默认值
+        Frontend ->> Frontend: 使用默认值赋值给account
+    end
+    Frontend ->> Redis: 获取account对应的对象
+    alt Redis中找到对象
+        Redis -->> Frontend: 返回用户对象
+        Frontend ->> User: 返回完整的用户对象
+    else Redis中未找到对象
+        Frontend ->> Database: 从数据库中查找对象
+        alt 数据库中找到对象
+            Database -->> Frontend: 返回用户对象
+            Frontend ->> Redis: 缓存用户对象到Redis
+            Frontend ->> User: 返回完整的用户对象
+        else 数据库中未找到对象
+            Frontend ->> ThirdPartyAPI: 调用第三方接口查询对象
+            alt 第三方接口找到对象
+                ThirdPartyAPI -->> Frontend: 返回用户对象
+                Frontend ->> Database: 存储用户对象到数据库
+                Frontend ->> User: 返回完整的用户对象
+            else 第三方接口未找到对象
+                ThirdPartyAPI -->> Frontend: 提示报错"用户账号不合法"
+                Frontend ->> User: 返回错误信息
+            end
+        end
+    end
+
+    我有这么一个流程，大体如下，我从数据库获取出数据，其中有一个用户字段，这个用户字段的值被转义了，我需
+    要根据这个数据库的值转换成一个对象返回。首选我从数据库里面查出属性字段的值，然后从redis缓存获取
+    这个值对应的对象，获取的到，则直接返回，获取不到，从数据库的user表中查找数据，查询的到，则返回这
+    个对象，同时在redis中缓存，查不到，那么调用第三方接口获取数据，获取的到，那么那数据库中的user表中
+    存入这条数据，同时更新redis缓存，并返回这个对象，获取不到，那么返回空，帮我把这个过程用mermaid画
+    为流程图
+
+    graph TD
+        A[开始] --> B[从数据库获取用户字段的值]
+        B --> C[从Redis缓存获取该值对应的对象]
+        C --> D{Redis中找到对象?}
+        D -- 是 --> E[返回对象]
+        D -- 否 --> F[从数据库的user表中查找对象]
+        F --> G{数据库中找到对象?}
+        G -- 是 --> H[返回对象并缓存到Redis]
+        H --> E
+        G -- 否 --> I[调用第三方接口获取数据]
+        I --> J{第三方接口找到对象?}
+        J -- 是 --> K[存储对象到数据库的user表并缓存到Redis]
+        K --> E
+        J -- 否 --> L[返回空]
+        E --> M[结束]
+        L --> M
