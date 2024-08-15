@@ -3,8 +3,11 @@
  * @Date:2023/11/1
  * @Author:谢锦创
  */
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
+@Slf4j
 public class Test {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();

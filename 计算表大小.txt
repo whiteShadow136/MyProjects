@@ -1,0 +1,54 @@
+CREATE OR REPLACE FUNCTION process_tables()
+    RETURNS VOID AS $$
+DECLARE
+    r RECORD;
+    table_size BIGINT;
+    updateSql varchar(255);
+BEGIN
+    FOR r IN
+        SELECT schemaname, tablename
+        FROM pg_tables
+        WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
+        LOOP
+            -- 获取表的大小
+            SELECT pg_total_relation_size(quote_ident(r.schemaname) || '.' || quote_ident(r.tablename))
+            INTO table_size;
+
+            RAISE NOTICE '%', table_size;
+            -- 如果表大小小于1GB，则执行某些操作
+            IF table_size <= 40000 THEN
+                -- 在这里插入你的操作逻辑
+                RAISE NOTICE 'skip %.%', r.schemaname, r.tablename;
+                -- 例如：执行某个操作
+                -- EXECUTE 'UPDATE ' || quote_ident(r.schemaname) || '.' || quote_ident(r.tablename) || ' SET some_column = some_value;';
+            ELSE
+                 updateSql = 'update ' || r.tablename || ' set ssid = id where ssid is null';
+                RAISE NOTICE '%', updateSql;
+                 execute updateSql;
+            END IF;
+        END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+select process_tables();
+
+SELECT quote_ident(schemaname) || '.' || quote_ident(tablename),
+       pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename))
+from pg_tables;
+
+select * from departments;
+
+select * from employees;
+
+alter table employees add column ssid varchar(255);
+
+update employees set id = employee_id;
+update departments set id = department_id;
+
+
+SELECT pg_total_relation_size(quote_ident("current_schema"()) || '.' || quote_ident('departments'));
+
+SELECT schemaname, tablename, pg_total_relation_size('' || pg_tables.schemaname
+                                                         || '.' || tablename || '') sizes
+FROM pg_tables
+WHERE schemaname NOT IN ('pg_catalog', 'information_schema');
