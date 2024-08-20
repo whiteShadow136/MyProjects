@@ -53,8 +53,8 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     private TransactionTest transactionTest;
 
     @Autowired
-    @Qualifier("redisTemplate")
-    private RedisTemplate redisTemplate;
+//    @Qualifier("redisTemplate")
+    private RedisTemplate<String, MyEntity> redisTemplate;
 
     ThreadLocal<HashMap<String, String>> enumThreadLocal = new ThreadLocal<>();
 
@@ -138,11 +138,10 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     @PostMapping("/testLoadClass")
     @Transactional
     public void testLoadClass() {
-        redisTemplate.opsForValue().set("11","111");
+//        redisTemplate.opsForValue().set("11","111");
         TestEntity testEntity = new TestEntity("1111");
         System.out.println(testEntity);
     }
-
     @PostMapping("/testAop")
     @Transactional
     public void testAop() {

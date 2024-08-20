@@ -1,6 +1,7 @@
 package org.example.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import org.example.entity.MyEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -33,12 +34,13 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<Object, Object> redisTemplate1(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+    public RedisTemplate<String, MyEntity> redisTemplate1(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, MyEntity> template = new RedisTemplate<>();
+//        MyEntity s = template.opsForValue().get("AAA");
         template.setConnectionFactory(connectionFactory);
 
         // 使用FastJsonRedisSerializer来序列化和反序列化redis的value值
-        FastJsonRedisSerializer<Object> serializer = new FastJsonRedisSerializer<>(Object.class);
+        FastJsonRedisSerializer<MyEntity> serializer = new FastJsonRedisSerializer<>(MyEntity.class);
 
         // 设置value的序列化规则和 key的序列化规则
         template.setValueSerializer(serializer);
