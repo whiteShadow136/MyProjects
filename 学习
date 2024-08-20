@@ -55,3 +55,6 @@ https://www.cnblogs.com/javastack/p/17308988.html
    就得修改为userVo
    org.hibernate.engine.jdbc.spi.SqlStatementLogger.logStatement(java.lang.String)
    https://blog.csdn.net/justlpf/article/details/131660347
+
+   spring使用jedis源码
+   https://blog.csdn.net/nidongla/article/details/115052312
