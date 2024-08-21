@@ -58,3 +58,6 @@ https://www.cnblogs.com/javastack/p/17308988.html
 
    spring使用jedis源码
    https://blog.csdn.net/nidongla/article/details/115052312
+
+   hibernate是数据库少了字段会报错，而多了字段不会报错
+   而redis是多了字段报错，少了字段不报错。

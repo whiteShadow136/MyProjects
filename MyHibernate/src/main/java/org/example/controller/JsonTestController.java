@@ -53,7 +53,7 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     private TransactionTest transactionTest;
 
     @Autowired
-//    @Qualifier("redisTemplate")
+    @Qualifier("redisTemplate2")
     private RedisTemplate<String, MyEntity> redisTemplate;
 
     ThreadLocal<HashMap<String, String>> enumThreadLocal = new ThreadLocal<>();

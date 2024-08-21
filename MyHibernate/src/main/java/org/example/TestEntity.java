@@ -1,6 +1,8 @@
 package org.example;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Description:PACKAGE_NAME
@@ -8,6 +10,7 @@ import lombok.Data;
  * @Author:谢锦创
  */
 @Data
+@NoArgsConstructor
 public class TestEntity {
     String name;
 
