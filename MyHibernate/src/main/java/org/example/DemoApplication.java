@@ -27,7 +27,8 @@ public class DemoApplication {
 //        ClassPathXmlApplicationContext classPathXmlApplicationContext = new
 //                MyClassPathXmlExtend("spring-${xing${name}}.xml");
 //        System.out.println(1111);
-
+//        System.setProperty("jdk.proxy.ProxyGenerator.saveGeneratedFiles", "true");
+        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         System.out.println(LocalDateTime.now());
         ConfigurableApplicationContext context = new SpringApplicationBuilder(DemoApplication.class)
         .applicationStartup(new BufferingApplicationStartup(20480))

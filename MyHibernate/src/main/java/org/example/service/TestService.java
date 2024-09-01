@@ -1,5 +1,8 @@
 package org.example.service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Description:org.example.service
  * @Date:2024/8/7
@@ -8,4 +11,7 @@ package org.example.service;
 public interface TestService {
 
     void asyncOfThreadLocal();
+
+    List selectTask();
+
 }

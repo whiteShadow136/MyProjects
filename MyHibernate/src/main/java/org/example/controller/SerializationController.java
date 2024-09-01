@@ -5,8 +5,10 @@ import ch.qos.logback.core.net.ObjectWriter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import org.example.TestEntity;
 import org.example.entity.MyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
@@ -30,6 +32,7 @@ import java.util.concurrent.FutureTask;
 public class SerializationController {
 
     @Autowired
+    @Qualifier("redisTemplate2")
     RedisTemplate redisTemplate;
 
     public final static Map<String, MyEntity> cache = new HashMap<>();
@@ -50,6 +53,12 @@ public class SerializationController {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("D://cache"));
         objectOutputStream.writeObject(cache);
         objectOutputStream.close();
+    }
+
+    @RequestMapping("/testRedisSerialize")
+    public void testRedisSerialize() throws IOException {
+        TestEntity testEntity = new TestEntity();
+        redisTemplate.opsForValue().set("TestAAA", testEntity);
     }
 
     void setMapData() {
