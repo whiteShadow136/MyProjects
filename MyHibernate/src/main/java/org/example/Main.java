@@ -3,10 +3,13 @@ package org.example;
 import com.alibaba.fastjson.JSONArray;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.cglib.core.DebuggingClassWriter;
 import org.example.entity.Calculator;
 import org.example.entity.MyCalculator;
 import org.example.entity.Users;
 import org.example.proxy.CalculatorProxy;
+import org.example.proxy.CglibProxy;
+import org.example.proxy.RealClass;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,8 +24,11 @@ import java.io.FileWriter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        String path = "D:\\develop_tools\\IntelliJ IDEA 2022.2.2\\ideaProjects\\MyProjects\\MyHibernate\\src\\main\\java\\org\\example\\proxy\\";
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, path);
         Main main = new Main();
-        main.test();
+        main.testJdkProxy();
+        main.TestCglibProxy();
 
         String[] str= {"春眠不觉晓,","处处闻啼鸟,","夜来风雨声,","花落知多少,"};
                 File file=new File("src\\cc.txt");
@@ -75,11 +81,17 @@ public class Main {
         System.out.println("Hello world!");
     }
 
-    void test() {
+    void testJdkProxy() {
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         CalculatorProxy calculatorProxy = new CalculatorProxy();
         Calculator proxy = calculatorProxy.getProxy(new MyCalculator());
         proxy.add(1, 1);
         System.out.println(proxy.getClass());
+    }
+
+    void TestCglibProxy() {
+        RealClass realObject = (RealClass) new CglibProxy().getProxyObject(new RealClass());
+        realObject.hah();
+        System.out.println("代码成功");
     }
 }

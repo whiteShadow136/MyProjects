@@ -1,6 +1,7 @@
 package org.example.proxy;
 
 import org.example.entity.Calculator;
+import org.springframework.util.Assert;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -13,6 +14,8 @@ import java.lang.reflect.Proxy;
  */
 public class CalculatorProxy {
     public <T> T getProxy(final T object) {
+        String name = null;
+
         ClassLoader classLoader = object.getClass().getClassLoader();
 //        Class<?>[] interfaces = classLoader.getClass().getInterfaces();
         Class<?>[] interfaces = object.getClass().getInterfaces();
