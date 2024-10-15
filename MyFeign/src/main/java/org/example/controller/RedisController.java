@@ -3,6 +3,10 @@ package org.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import org.example.entity.MyTestSeriEntity;
 import org.example.entity.SysClass;
 import org.example.entity.SysUser;
 import org.example.enums.Cascade;
@@ -11,6 +15,7 @@ import org.example.vo.RelationShipVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +40,9 @@ public class RedisController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     private static Map<Class<?>, List<RelationShipVO>> SOURCE_CACHE = new ConcurrentHashMap<>();
 
     private static Map<Class<?>, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
@@ -48,8 +56,27 @@ public class RedisController {
         }
     }
 
+    @RequestMapping("test")
+    public Result testDeserialization(){
+        Jackson2JsonRedisSerializer serializationConfig = new Jackson2JsonRedisSerializer(MyTestSeriEntity.class);
+        objectMapper.configure(MapperFeature.IGNORE_MERGE_FOR_UNMERGEABLE, false);
+        serializationConfig.setObjectMapper(new ObjectMapper());
+        redisTemplate.setHashValueSerializer(serializationConfig);
+        Object o = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
+
+
+//        MyTestSeriEntity myTestSeriEntity = new MyTestSeriEntity();
+////        myTestSeriEntity.setName("aaa");
+//        myTestSeriEntity.setAge(111);
+//
+//        redisTemplate.opsForHash().put("test", "myTestSeriEntity", myTestSeriEntity);
+//        Object object = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
+        return null;
+    }
+
     @GetMapping("save")
     public Result save(@RequestParam String key,@RequestParam String value){
+
         redisTemplate.expire(key, 24, TimeUnit.HOURS);
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new StringRedisSerializer());
@@ -57,6 +84,7 @@ public class RedisController {
         redisTemplate.opsForHash().put("global","A:B:D", "D");
         redisTemplate.opsForHash().put("global","A:B:E", "D");
         redisTemplate.opsForHash().put("global","A:C:E", "D");
+        Set keys1 = redisTemplate.opsForHash().keys("global");
 
         HashOperations<String, String, Object> hashOps = redisTemplate.opsForHash();
 // 获取符合前缀条件的所有键
