@@ -1,5 +1,7 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -29,4 +31,15 @@ public class MyTestSeriEntity {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+//    @JsonCreator
+//    public MyTestSeriEntity(@JsonProperty("name") AAA name, @JsonProperty("age") Integer age) {
+//        this.name = name;
+//        this.age = age;
+//    }
+
+//    @JsonCreator
+//    public MyTestSeriEntity(@JsonProperty("name")AAA name) {
+//        this.name = name;
+//    }
 }

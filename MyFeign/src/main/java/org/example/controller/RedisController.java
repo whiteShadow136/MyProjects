@@ -6,6 +6,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
+import org.example.entity.AAA;
 import org.example.entity.MyTestSeriEntity;
 import org.example.entity.SysClass;
 import org.example.entity.SysUser;
@@ -58,12 +59,22 @@ public class RedisController {
 
     @RequestMapping("test")
     public Result testDeserialization(){
+        Jackson2JsonRedisSerializer serializationConfig1 = new Jackson2JsonRedisSerializer(AAA.class);
+        serializationConfig1.setObjectMapper(new ObjectMapper());
+        redisTemplate.setHashValueSerializer(serializationConfig1);
+        redisTemplate.opsForHash().get("key", "field");
+        Object object2 = redisTemplate.opsForHash().get("key", "field");
+        System.out.println(object2);
+
         Jackson2JsonRedisSerializer serializationConfig = new Jackson2JsonRedisSerializer(MyTestSeriEntity.class);
         objectMapper.configure(MapperFeature.IGNORE_MERGE_FOR_UNMERGEABLE, false);
         serializationConfig.setObjectMapper(new ObjectMapper());
         redisTemplate.setHashValueSerializer(serializationConfig);
-        Object o = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
-
+        Object object = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
+        Object object1 = redisTemplate.opsForHash().get("test1", "myTestSeriEntity");
+        System.out.println(object);
+        System.out.println(object1);
+        System.out.println(1111);
 
 //        MyTestSeriEntity myTestSeriEntity = new MyTestSeriEntity();
 ////        myTestSeriEntity.setName("aaa");
