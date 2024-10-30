@@ -3,6 +3,7 @@ package org.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
@@ -55,6 +56,20 @@ public class RedisController {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @RequestMapping("testFastJson")
+    public Result testFastJsonDeserialization(){
+        FastJsonRedisSerializer myTestSeriEntityFastJsonRedisSerializer =
+                new FastJsonRedisSerializer<>(MyTestSeriEntity.class);
+        redisTemplate.setValueSerializer(myTestSeriEntityFastJsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(myTestSeriEntityFastJsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        JSON.parseObject("{\"name\":\"test\",\"age\":18}", MyTestSeriEntity.class);
+        Object object = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
+        MyTestSeriEntity myTestSeriEntity = JSON.parseObject(object.toString(), MyTestSeriEntity.class);
+        return null;
     }
 
     @RequestMapping("test")
