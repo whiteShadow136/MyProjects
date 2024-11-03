@@ -1,5 +1,7 @@
 package org.example.config;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import org.example.entity.AAA;
@@ -13,10 +15,14 @@ public class AAADeserializer implements ObjectDeserializer {
         if (value instanceof String) {
             AAA aaa = new AAA(value.toString());
             return aaa;
-        } else if (value instanceof AAA) {
-            return null; // 新格式直接返回
+        } else {
+            JSONObject jsonObject = (JSONObject) value;
+            jsonObject.toJavaObject(AAA.class);
+            return JSON.parseObject(value.toString(), AAA.class);
+//            return parser.parseObject(type);
+//            AAA aaa = JSON.parseObject(JSON.toJSONString(value), AAA.class);
+//            return aaa; // 新格式直接返回
         }
-        return null;
     }
 
     @Override

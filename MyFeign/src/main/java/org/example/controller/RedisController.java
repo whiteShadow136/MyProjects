@@ -66,9 +66,15 @@ public class RedisController {
         redisTemplate.setHashValueSerializer(myTestSeriEntityFastJsonRedisSerializer);
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+
         JSON.parseObject("{\"name\":\"test\",\"age\":18}", MyTestSeriEntity.class);
+        MyTestSeriEntity myTestSeriEntity =new MyTestSeriEntity();
+        AAA aaa = new AAA("111");
+        aaa.setBbb("222");
+        AAA aaa1 = JSON.parseObject(JSON.toJSONString(aaa), AAA.class);
+        System.out.println(aaa1);
+//        JSON.parseObject("{\"name\":{\"aaa\": \"111\", \"bbb\": \"222\"},\"age\":18}", MyTestSeriEntity.class);
         Object object = redisTemplate.opsForHash().get("test", "myTestSeriEntity");
-        MyTestSeriEntity myTestSeriEntity = JSON.parseObject(object.toString(), MyTestSeriEntity.class);
         return null;
     }
 
