@@ -49,7 +49,33 @@ public class RedisController {
 
     private static Map<Class<?>, List<RelationShipVO>> TARGET_CACHE = new ConcurrentHashMap<>();
 
+    public List<RelationShipVO> getLists(Class clazz) {
+        List<RelationShipVO> relationShipVOS = TARGET_CACHE.get(clazz);
+        return Collections.unmodifiableList(relationShipVOS);
+    }
+
+    public RelationShipVO getList(Class clazz) {
+        List<RelationShipVO> relationShipVOS = TARGET_CACHE.get(clazz);
+        return relationShipVOS.get(0);
+    }
+
+    public void init() {
+        TARGET_CACHE.clear();
+        List<RelationShipVO> relationShipVOS = getRelationShipVo();
+        for (RelationShipVO relationShipVO : relationShipVOS) {
+            Class targetClass = relationShipVO.getTargetClass();
+            if (TARGET_CACHE.get(targetClass) == null) {
+                ArrayList<RelationShipVO> relationShipVOS1 = new ArrayList<>();
+                relationShipVOS1.add(relationShipVO);
+                TARGET_CACHE.put(targetClass, relationShipVOS1);
+            } else {
+                TARGET_CACHE.get(targetClass).add(relationShipVO);
+            }
+        }
+    }
+
     static String sss = "abc";
+
     public RedisController() {
         try {
             Thread.sleep(10000);

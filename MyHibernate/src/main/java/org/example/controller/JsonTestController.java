@@ -6,6 +6,7 @@ import org.example.TestEntity;
 import org.example.entity.MyEntity;
 import org.example.entity.SysUser;
 import org.example.impl.UserServiceImpl;
+import org.example.service.TestService;
 import org.example.service.UserService;
 import org.example.util.ApplicationContextUtil;
 import org.hibernate.SessionFactory;
@@ -55,6 +56,9 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     @Autowired
     @Qualifier("redisTemplate2")
     private RedisTemplate<String, MyEntity> redisTemplate;
+
+    @Autowired
+    private TestService testService;
 
     ThreadLocal<HashMap<String, String>> enumThreadLocal = new ThreadLocal<>();
 
@@ -165,6 +169,7 @@ public class JsonTestController implements ApplicationListener<ContextRefreshedE
     @PostMapping("/testAsync")
     @ResponseBody
     public String test1() {
+        testService.asyncOfThreadLocal();
         JsonTestController bean = ApplicationContextUtil.getBean(JsonTestController.class);
         bean.testMulGet("1");
         return "SUCCESS";
